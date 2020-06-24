@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
-class AdminMiddleware
+class SuperAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -19,10 +19,14 @@ class AdminMiddleware
     {
         $user = User::all()->count();
         if (!($user == 1)) {
-            if (!Auth::user()->hasPermissionTo('Admin')) //If user does //not have this permission
+            if (!Auth::user()->hasPermissionTo('Superadmin')) //If user does //not have this permission
             {
                 abort('401');
             }
+            // elseif (!Auth::user()->hasPermissionTo('Admin')) //If user does //not have this permission
+            // {
+            //     abort('401');
+            // }
         }
 
         return $next($request);

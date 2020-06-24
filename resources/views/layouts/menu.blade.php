@@ -2,18 +2,7 @@
     <a href="{{ route('chapters.index') }}"><i class="fa fa-edit"></i><span>Chapters</span></a>
 </li>
 
-<li class="{{ Request::is('permissions*') ? 'active' : '' }}">
-    <a href="{{ route('permissions.index') }}"><i class="fa fa-edit"></i><span>Permissions</span></a>
-</li>
-
-<li class="{{ Request::is('roles*') ? 'active' : '' }}">
-    <a href="{{ route('roles.index') }}"><i class="fa fa-edit"></i><span>Roles</span></a>
-</li>
-
-<li class="{{ Request::is('users*') ? 'active' : '' }}">
-    <a href="{{ route('users.index') }}"><i class="fa fa-edit"></i><span>Users</span></a>
-</li>
-@role('Superadmin')
+@hasanyrole('Superadmin|Admin')
 <li class="{{ Request::is('cms*') ? 'active' : '' }}">
     <a href="{{ route('cms.index') }}"><i class="fa fa-edit"></i><span>Cms</span></a>
 </li>
@@ -50,3 +39,15 @@
     <a href="{{ route('topicLessons.index') }}"><i class="fa fa-edit"></i><span>Topic Lessons</span></a>
 </li>
 
+<li class="{{ Request::is('users*') ? 'active' : '' }}">
+    <a href="{{ route('users.index') }}"><i class="fa fa-edit"></i><span>Users</span></a>
+</li>
+
+@role('Superadmin')
+<li class="{{ Request::is('permissions*') ? 'active' : '' }}">
+    <a href="{{ route('permissions.index') }}"><i class="fa fa-edit"></i><span>Permissions</span></a>
+</li>
+<li class="{{ Request::is('roles*') ? 'active' : '' }}">
+    <a href="{{ route('roles.index') }}"><i class="fa fa-edit"></i><span>Roles</span></a>
+</li>
+@endrole

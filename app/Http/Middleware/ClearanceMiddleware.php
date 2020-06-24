@@ -23,7 +23,7 @@ class ClearanceMiddleware
 
         if ($request->is('chapters/create')) //If user is creating a post
         {
-            if (!Auth::user()->hasPermissionTo('Tambah Bab')) {
+            if (!Auth::user()->hasPermissionTo('tambah-bab')) {
                 abort('401');
             } else {
                 return $next($request);
@@ -32,7 +32,7 @@ class ClearanceMiddleware
 
         if ($request->is('chapters/*/edit')) //If user is editing a post
         {
-            if (!Auth::user()->hasPermissionTo('Edit Bab')) {
+            if (!Auth::user()->hasPermissionTo('edit-bab')) {
                 abort('401');
             } else {
                 return $next($request);
@@ -41,7 +41,7 @@ class ClearanceMiddleware
 
         if ($request->isMethod('Delete')) //If user is deleting a post
         {
-            if (!Auth::user()->hasPermissionTo('Hapus Bab')) {
+            if (!Auth::user()->hasPermissionTo('hapus-bab')) {
                 abort('401');
             } else {
                 return $next($request);
