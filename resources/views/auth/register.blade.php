@@ -32,19 +32,22 @@
     <![endif]-->
 </head>
 <body class="hold-transition register-page">
-<div class="register-box">
+<div class="register-box" >
     <div class="register-logo">
-        <a href="{{ url('/home') }}"><b>InfyOm </b>Generator</a>
+         <div class="col-md-12">
+        <img src="{{ url('storage/logo/madrasah.png') }}" width="50%">
+        </div>
+        <b>Madrasah</b> AFAS
     </div>
 
     <div class="register-box-body">
-        <p class="login-box-msg">Register a new membership</p>
+        <p class="login-box-msg">Register</p>
 
         <form method="post" action="{{ url('/register') }}">
             @csrf
 
             <div class="form-group has-feedback{{ $errors->has('name') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Full Name">
+                <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Nama Lengkap">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
 
                 @if ($errors->has('name'))
@@ -61,6 +64,39 @@
                 @if ($errors->has('email'))
                     <span class="help-block">
                         <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
+            </div>
+
+            <div class="form-group has-feedback{{ $errors->has('username') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Username">
+                <span class="fa fa-at form-control-feedback"></span>
+
+                @if ($errors->has('username'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('username') }}</strong>
+                    </span>
+                @endif
+            </div>
+
+            <div class="form-group has-feedback{{ $errors->has('phone') ? ' has-error' : '' }}">
+                <input type="number" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="No. Telepon">
+                <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+
+                @if ($errors->has('phone'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('phone') }}</strong>
+                    </span>
+                @endif
+            </div>
+
+            <div class="form-group has-feedback{{ $errors->has('address') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="address" value="{{ old('address') }}" placeholder="Alamat">
+                <span class="fa fa-map form-control-feedback"></span>
+
+                @if ($errors->has('address'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('address') }}</strong>
                     </span>
                 @endif
             </div>
@@ -87,13 +123,54 @@
                 @endif
             </div>
 
+            <div class="form-group has-feedback{{ $errors->has('bmkz') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="bmkz" value="{{ old('bmkz') }}" placeholder="Asal BMKZ">
+                <span class="fa fa-get-pocket form-control-feedback"></span>
+
+                @if ($errors->has('bmkz'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('bmkz') }}</strong>
+                    </span>
+                @endif
+            </div>
+
+            <div class="form-group has-feedback{{ $errors->has('mz') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="mz" value="{{ old('mz') }}" placeholder="Asal MZ">
+                <span class="fa fa-get-pocket form-control-feedback"></span>
+
+                @if ($errors->has('mz'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('mz') }}</strong>
+                    </span>
+                @endif
+            </div>
+
+            <div class="form-group has-feedback{{ $errors->has('suluk') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="suluk" value="{{ old('suluk') }}" placeholder="Suluk">
+                <span class="fa fa-get-pocket form-control-feedback"></span>
+
+                @if ($errors->has('suluk'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('suluk') }}</strong>
+                    </span>
+                @endif
+            </div>
+
+            <div class="form-group has-feedback{{ $errors->has('alumni') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="alumni" value="{{ old('alumni') }}" placeholder="Alumni AFAS Dasar Angkatan">
+                <span class="fa fa-get-pocket form-control-feedback"></span>
+
+                @if ($errors->has('alumni'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('alumni') }}</strong>
+                    </span>
+                @endif
+            </div>
+            
+
             <div class="row">
                 <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"> I agree to the <a href="#">terms</a>
-                        </label>
-                    </div>
+                    
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
@@ -103,7 +180,7 @@
             </div>
         </form>
 
-        <a href="{{ url('/login') }}" class="text-center">I already have a membership</a>
+        <a href="{{ url('/login') }}" class="text-center">Saya sudah punya akun</a>
     </div>
     <!-- /.form-box -->
 </div>

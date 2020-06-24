@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,14 +23,14 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+     use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::LOGIN;
 
     /**
      * Create a new controller instance.
@@ -39,6 +40,15 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $this->create($request->all());
+
+        return redirect($this->redirectTo)->with(['success' => 'Pendaftaran Berhasil silahkan menunggu admin untuk mengaktivasi akun anda']);
     }
 
     /**
@@ -53,6 +63,13 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'phone' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'bmkz' => ['required', 'string', 'max:255'],
+            'mz' => ['required', 'string', 'max:255'],
+            'suluk' => ['required', 'string', 'max:255'],
+            'alumni' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -64,10 +81,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $userData = [
             'name' => $data['name'],
             'email' => $data['email'],
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
-        ]);
+            'phone' => $data['phone'],
+            'address' => $data['address'],
+            'bmkz_origin' => $data['bmkz'],
+            'mz_origin' => $data['mz'],
+            'suluk' => $data['suluk'],
+            'alumni' => $data['alumni'],
+        ];
+        return User::create($userData);
     }
 }

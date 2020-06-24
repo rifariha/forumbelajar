@@ -35,22 +35,37 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{ url('/home') }}"><b>InfyOm </b>Generator</a>
+        <div class="col-md-12">
+        <img src="{{ url('storage/logo/madrasah.png') }}" width="50%">
+        </div>
+        
+        <b>Madrasah</b> AFAS
     </div>
-
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button> 
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
+         @if ($message = Session::get('failed'))
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button> 
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Sign in</p>
 
         <form method="post" action="{{ url('/login') }}">
             @csrf
-
-            <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
+            
+            <div class="form-group has-feedback {{ $errors->has('username') ? ' has-error' : '' }}">
+                <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Username">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                @if ($errors->has('email'))
+                @if ($errors->has('username'))
                     <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
+                    <strong>{{ $errors->first('username') }}</strong>
                 </span>
                 @endif
             </div>
@@ -67,11 +82,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox" name="remember"> Remember Me
-                        </label>
-                    </div>
+                   
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
@@ -81,8 +92,8 @@
             </div>
         </form>
 
-        <a href="{{ url('/password/reset') }}">I forgot my password</a><br>
-        <a href="{{ url('/register') }}" class="text-center">Register a new membership</a>
+        {{-- <a href="{{ url('/password/reset') }}">I forgot my password</a><br> --}}
+        <a href="{{ url('/register') }}" class="text-center">Register</a>
 
     </div>
     <!-- /.login-box-body -->

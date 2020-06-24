@@ -50,6 +50,7 @@ class User extends Authenticatable
         'phone',
         'image',
         'status',
+        'address',
         'bmkz_origin',
         'mz_origin',
         'suluk',
@@ -71,6 +72,7 @@ class User extends Authenticatable
         'password' => 'string',
         'phone' => 'string',
         'image' => 'string',
+        'address' => 'string',
         'status' => 'boolean',
         'bmkz_origin' => 'string',
         'mz_origin' => 'string',
@@ -90,12 +92,13 @@ class User extends Authenticatable
         'username' => 'required',
         'password' => 'required',
         'status' => 'required',
+        'adress' => 'required',
         'bmkz_origin' => 'required',
         'mz_origin' => 'required',
         'suluk' => 'required',
         'alumni' => 'required'
     ];
-
+    
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
