@@ -3,6 +3,9 @@
 </li>
 
 @hasanyrole('Superadmin|Admin')
+<li class="{{ Request::is('users*') ? 'active' : '' }}">
+    <a href="{{ route('users.index') }}"><i class="fa fa-edit"></i><span>Users</span></a>
+</li>
 @endrole
 
 <li class="{{ Request::is('forums*') ? 'active' : '' }}">
@@ -37,10 +40,6 @@
     <a href="{{ route('topicLessons.index') }}"><i class="fa fa-edit"></i><span>Topic Lessons</span></a>
 </li>
 
-<li class="{{ Request::is('users*') ? 'active' : '' }}">
-    <a href="{{ route('users.index') }}"><i class="fa fa-edit"></i><span>Users</span></a>
-</li>
-
 @role('Superadmin')
 <li class="{{ Request::is('permissions*') ? 'active' : '' }}">
     <a href="{{ route('permissions.index') }}"><i class="fa fa-edit"></i><span>Permissions</span></a>
@@ -57,4 +56,5 @@
 <li class="{{ Request::is('cms*') ? 'active' : '' }}">
     <a href="{{ route('cms.index') }}"><i class="fa fa-edit"></i><span>Cms</span></a>
 </li>
+
 

@@ -8,7 +8,7 @@ use App\Repositories\BaseRepository;
 /**
  * Class UserRepository
  * @package App\Repositories
- * @version June 23, 2020, 9:04 am UTC
+ * @version June 25, 2020, 3:31 am UTC
 */
 
 class UserRepository extends BaseRepository
@@ -20,16 +20,12 @@ class UserRepository extends BaseRepository
         'name',
         'email',
         'username',
-        'email_verified_at',
-        'password',
         'phone',
-        'image',
-        'status',
+        'address',
         'bmkz_origin',
         'mz_origin',
         'suluk',
         'alumni',
-        'remember_token'
     ];
 
     /**
@@ -40,6 +36,12 @@ class UserRepository extends BaseRepository
     public function getFieldsSearchable()
     {
         return $this->fieldSearchable;
+    }
+
+    public function findWhere($data)
+    {
+        $user = User::where($data)->first();
+        return $user;
     }
 
     /**

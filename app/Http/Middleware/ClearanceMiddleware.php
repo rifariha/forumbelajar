@@ -48,6 +48,34 @@ class ClearanceMiddleware
             }
         }
 
+
+        if ($request->is('users/create')) //If user is creating a post
+        {
+            if (!Auth::user()->hasPermissionTo('tambah-user')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->is('users/*/edit')) //If user is editing a post
+        {
+            if (!Auth::user()->hasPermissionTo('edit-user')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->isMethod('Delete')) //If user is deleting a post
+        {
+            if (!Auth::user()->hasPermissionTo('hapus-user')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
         return $next($request);
     }
 }

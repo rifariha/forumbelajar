@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\UserDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use App\Http\Controllers\AppBaseController;
 use Response;
 
 class UserController extends AppBaseController
@@ -17,23 +18,19 @@ class UserController extends AppBaseController
 
     public function __construct(UserRepository $userRepo)
     {
-        $this->middleware(['auth', 'isSuperAdmin']);
+        $this->middleware(['auth', 'isAdmin']);
         $this->userRepository = $userRepo;
     }
 
     /**
      * Display a listing of the User.
      *
-     * @param Request $request
-     *
+     * @param UserDataTable $userDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(UserDataTable $userDataTable)
     {
-        $users = $this->userRepository->all();
-
-        return view('users.index')
-            ->with('users', $users);
+        return $userDataTable->render('users.index');
     }
 
     /**
@@ -56,7 +53,7 @@ class UserController extends AppBaseController
     public function store(CreateUserRequest $request)
     {
         $input = $request->all();
-
+        $input['image'] = 'default_avatar.png';
         $user = $this->userRepository->create($input);
 
         Flash::success('User saved successfully.');
@@ -67,7 +64,7 @@ class UserController extends AppBaseController
     /**
      * Display the specified User.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -87,7 +84,7 @@ class UserController extends AppBaseController
     /**
      * Show the form for editing the specified User.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -107,7 +104,7 @@ class UserController extends AppBaseController
     /**
      * Update the specified User in storage.
      *
-     * @param int $id
+     * @param  int              $id
      * @param UpdateUserRequest $request
      *
      * @return Response
@@ -117,14 +114,33 @@ class UserController extends AppBaseController
         $user = $this->userRepository->find($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error('User tidak ditemukan');
 
             return redirect(route('users.index'));
         }
 
+        if($request->username != $user->username)
+        {
+            $user = $this->userRepository->findWhere(['username' => $request->username])->count();
+            if($user != 0)
+            {
+                Flash::error('Username sudah digunakan');
+                return redirect()->back();
+            }
+        }
+
+        if(!empty($request->password))
+        {
+            if ($request->password != $request->password_confirmation) 
+            {
+                Flash::error('Password Baru tidak sesuai');
+                return redirect()->back();    
+            }
+        }
+
         $user = $this->userRepository->update($request->all(), $id);
 
-        Flash::success('User updated successfully.');
+        Flash::success('User berhasil diupdate.');
 
         return redirect(route('users.index'));
     }
@@ -132,9 +148,7 @@ class UserController extends AppBaseController
     /**
      * Remove the specified User from storage.
      *
-     * @param int $id
-     *
-     * @throws \Exception
+     * @param  int $id
      *
      * @return Response
      */

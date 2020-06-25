@@ -23,10 +23,6 @@ class SuperAdminMiddleware
             {
                 abort('401');
             }
-            // elseif (!Auth::user()->hasPermissionTo('Admin')) //If user does //not have this permission
-            // {
-            //     abort('401');
-            // }
         }
 
         return $next($request);

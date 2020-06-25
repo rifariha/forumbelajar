@@ -89,10 +89,21 @@ class User extends Authenticatable
     public static $rules = [
         'name' => 'required',
         'email' => 'required',
-        'username' => 'required',
-        'password' => 'required',
+        'username' => 'required|unique:users|min:6',
+        'password' => 'required|confirmed|min:6',
         'status' => 'required',
-        'adress' => 'required',
+        'address' => 'required',
+        'bmkz_origin' => 'required',
+        'mz_origin' => 'required',
+        'suluk' => 'required',
+        'alumni' => 'required'
+    ];
+
+    public static $editrules = [
+        'name' => 'required',
+        'email' => 'required',
+        'status' => 'required',
+        'address' => 'required',
         'bmkz_origin' => 'required',
         'mz_origin' => 'required',
         'suluk' => 'required',

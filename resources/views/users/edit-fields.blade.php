@@ -17,21 +17,21 @@
 </div>
 
 <div class="form-group col-sm-4">
-    {!! Form::label('password', 'Password:') !!}
+    {!! Form::label('password', 'New Password:') !!}
     {!! Form::password('password', ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-4">
-    {!! Form::label('password', 'Confirm Password:') !!}
+    {!! Form::label('password', 'Confirm New Password:') !!}
     {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
 </div>
+
 
 <!-- Phone Field -->
 <div class="form-group col-sm-4">
     {!! Form::label('phone', 'Phone:') !!}
     {!! Form::number('phone', null, ['class' => 'form-control']) !!}
 </div>
-
 
 <!-- Address Field -->
 <div class="form-group col-sm-12 col-lg-12">
@@ -47,13 +47,13 @@
 
 <!-- Bmkz Origin Field -->
 <div class="form-group col-sm-2">
-    {!! Form::label('bmkz_origin', 'Bmkz Origin:') !!}
+    {!! Form::label('bmkz_origin', 'Asal BMKZ:') !!}
     {!! Form::text('bmkz_origin', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Mz Origin Field -->
 <div class="form-group col-sm-2">
-    {!! Form::label('mz_origin', 'Mz Origin:') !!}
+    {!! Form::label('mz_origin', 'Asal MZ:') !!}
     {!! Form::text('mz_origin', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -65,7 +65,7 @@
 
 <!-- Alumni Field -->
 <div class="form-group col-sm-3">
-    {!! Form::label('alumni', 'Alumni:') !!}
+    {!! Form::label('alumni', 'Alumni AFAS Dasar Angkatan:') !!}
     {!! Form::text('alumni', null, ['class' => 'form-control']) !!}
 </div>
 

@@ -14,6 +14,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => $faker->date('Y-m-d H:i:s'),
         'password' => $faker->word,
         'phone' => $faker->word,
+        'address' => $faker->text,
         'image' => $faker->word,
         'status' => $faker->word,
         'bmkz_origin' => $faker->word,
