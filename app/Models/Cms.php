@@ -7,7 +7,7 @@ use Eloquent as Model;
 /**
  * Class Cms
  * @package App\Models
- * @version June 23, 2020, 11:46 am UTC
+ * @version June 24, 2020, 11:59 am UTC
  *
  * @property string $cms_name
  * @property string $content
@@ -20,8 +20,6 @@ class Cms extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
-    protected $dates = ['deleted_at'];
 
 
 

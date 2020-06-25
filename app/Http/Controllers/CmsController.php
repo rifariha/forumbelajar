@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\CmsDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateCmsRequest;
 use App\Http\Requests\UpdateCmsRequest;
 use App\Repositories\CmsRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use App\Http\Controllers\AppBaseController;
 use Response;
 
 class CmsController extends AppBaseController
@@ -23,16 +24,12 @@ class CmsController extends AppBaseController
     /**
      * Display a listing of the Cms.
      *
-     * @param Request $request
-     *
+     * @param CmsDataTable $cmsDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(CmsDataTable $cmsDataTable)
     {
-        $cms = $this->cmsRepository->all();
-
-        return view('cms.index')
-            ->with('cms', $cms);
+        return $cmsDataTable->render('cms.index');
     }
 
     /**
@@ -66,7 +63,7 @@ class CmsController extends AppBaseController
     /**
      * Display the specified Cms.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -86,7 +83,7 @@ class CmsController extends AppBaseController
     /**
      * Show the form for editing the specified Cms.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -106,7 +103,7 @@ class CmsController extends AppBaseController
     /**
      * Update the specified Cms in storage.
      *
-     * @param int $id
+     * @param  int              $id
      * @param UpdateCmsRequest $request
      *
      * @return Response
@@ -131,9 +128,7 @@ class CmsController extends AppBaseController
     /**
      * Remove the specified Cms from storage.
      *
-     * @param int $id
-     *
-     * @throws \Exception
+     * @param  int $id
      *
      * @return Response
      */

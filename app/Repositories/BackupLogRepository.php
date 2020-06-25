@@ -2,23 +2,24 @@
 
 namespace App\Repositories;
 
-use App\Models\Cms;
+use App\Models\BackupLog;
 use App\Repositories\BaseRepository;
 
 /**
- * Class CmsRepository
+ * Class BackupLogRepository
  * @package App\Repositories
- * @version June 24, 2020, 11:59 am UTC
+ * @version June 24, 2020, 11:47 am UTC
 */
 
-class CmsRepository extends BaseRepository
+class BackupLogRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
-        'cms_name',
-        'content'
+        'topic_id',
+        'status',
+        'created_by'
     ];
 
     /**
@@ -36,6 +37,6 @@ class CmsRepository extends BaseRepository
      **/
     public function model()
     {
-        return Cms::class;
+        return BackupLog::class;
     }
 }

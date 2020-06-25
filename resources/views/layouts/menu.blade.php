@@ -3,10 +3,8 @@
 </li>
 
 @hasanyrole('Superadmin|Admin')
-<li class="{{ Request::is('cms*') ? 'active' : '' }}">
-    <a href="{{ route('cms.index') }}"><i class="fa fa-edit"></i><span>Cms</span></a>
-</li>
 @endrole
+
 <li class="{{ Request::is('forums*') ? 'active' : '' }}">
     <a href="{{ route('forums.index') }}"><i class="fa fa-edit"></i><span>Forums</span></a>
 </li>
@@ -51,3 +49,12 @@
     <a href="{{ route('roles.index') }}"><i class="fa fa-edit"></i><span>Roles</span></a>
 </li>
 @endrole
+
+<li class="{{ Request::is('backupLogs*') ? 'active' : '' }}">
+    <a href="{{ route('backupLogs.index') }}"><i class="fa fa-edit"></i><span>Backup Logs</span></a>
+</li>
+
+<li class="{{ Request::is('cms*') ? 'active' : '' }}">
+    <a href="{{ route('cms.index') }}"><i class="fa fa-edit"></i><span>Cms</span></a>
+</li>
+

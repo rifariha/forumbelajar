@@ -38,8 +38,6 @@ Route::resource('roles', 'RoleController');
 
 Route::resource('users', 'UserController');
 
-Route::resource('cms', 'CmsController');
-
 Route::resource('forums', 'ForumController');
 
 Route::resource('galleries', 'GalleryController');
@@ -55,3 +53,8 @@ Route::resource('sliders', 'SliderController');
 Route::resource('topics', 'TopicController');
 
 Route::resource('topicLessons', 'TopicLessonController');
+
+Route::resource('backupLogs', 'BackupLogController');
+
+
+Route::resource('cms', 'CmsController');
