@@ -154,7 +154,7 @@ class ChapterController extends AppBaseController
         {
             $input['image'] = $chapter->image;
         }
-        
+
         $chapter = $this->chapterRepository->update($input, $id);
 
         Flash::success('Bab berhasil diupdate.');
@@ -181,7 +181,7 @@ class ChapterController extends AppBaseController
 
         $this->chapterRepository->delete($id);
 
-        Flash::success('Chapter deleted successfully.');
+        Flash::success('Bab berhasil dihapus.');
 
         return redirect(route('chapters.index'));
     }
