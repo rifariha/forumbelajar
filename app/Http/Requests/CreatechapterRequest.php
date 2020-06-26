@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\chapter;
+use App\Models\Chapter;
 
-class CreatechapterRequest extends FormRequest
+class CreateChapterRequest extends FormRequest
 {
 
     /**
@@ -25,6 +25,6 @@ class CreatechapterRequest extends FormRequest
      */
     public function rules()
     {
-        return chapter::$rules;
+        return Chapter::$rules;
     }
 }

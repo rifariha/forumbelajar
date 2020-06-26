@@ -1,7 +1,7 @@
 [
     {
         "name": "id",
-        "dbType": "increments",
+        "dbType": "integer,true,true",
         "htmlType": null,
         "validations": null,
         "searchable": false,
@@ -13,7 +13,7 @@
     },
     {
         "name": "chapter_name",
-        "dbType": "string",
+        "dbType": "string,255",
         "htmlType": "text",
         "validations": "required",
         "searchable": true,
@@ -25,7 +25,7 @@
     },
     {
         "name": "short_description",
-        "dbType": "string",
+        "dbType": "string,255",
         "htmlType": "text",
         "validations": "required",
         "searchable": true,
@@ -37,8 +37,8 @@
     },
     {
         "name": "description",
-        "dbType": "text",
-        "htmlType": "text",
+        "dbType": "text,65535",
+        "htmlType": "textarea",
         "validations": "required",
         "searchable": true,
         "fillable": true,
@@ -49,9 +49,9 @@
     },
     {
         "name": "image",
-        "dbType": "string",
-        "htmlType": "file",
-        "validations": "",
+        "dbType": "string,255",
+        "htmlType": "text",
+        "validations": "required",
         "searchable": true,
         "fillable": true,
         "primary": false,
@@ -61,26 +61,38 @@
     },
     {
         "name": "created_at",
-        "dbType": "timestamp",
-        "htmlType": null,
+        "dbType": "datetime:nullable",
+        "htmlType": "date",
         "validations": null,
         "searchable": false,
         "fillable": false,
         "primary": false,
         "inForm": false,
         "inIndex": false,
-        "inView": true
+        "inView": false
     },
     {
         "name": "updated_at",
-        "dbType": "timestamp",
-        "htmlType": null,
+        "dbType": "datetime:nullable",
+        "htmlType": "date",
         "validations": null,
         "searchable": false,
         "fillable": false,
         "primary": false,
         "inForm": false,
         "inIndex": false,
-        "inView": true
+        "inView": false
+    },
+    {
+        "name": "deleted_at",
+        "dbType": "datetime:nullable",
+        "htmlType": "date",
+        "validations": null,
+        "searchable": false,
+        "fillable": false,
+        "primary": false,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
     }
 ]

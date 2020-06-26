@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Eloquent as Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class chapter
+ * Class Chapter
  * @package App\Models
- * @version June 23, 2020, 3:29 am UTC
+ * @version June 26, 2020, 3:24 am UTC
  *
  * @property string $chapter_name
  * @property string $short_description
@@ -17,14 +16,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Chapter extends Model
 {
-    use SoftDeletes;
 
     public $table = 'chapters';
     
-
-    protected $dates = ['deleted_at'];
-
-
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
 
     public $fillable = [
         'chapter_name',
@@ -54,7 +50,14 @@ class Chapter extends Model
     public static $rules = [
         'chapter_name' => 'required',
         'short_description' => 'required',
-        'description' => 'required'
+        'description' => 'required',
+        'image' => 'required|max:15000|mimes:jpg,png,jpeg'
+    ];
+
+    public static $editrules = [
+        'chapter_name' => 'required',
+        'short_description' => 'required',
+        'description' => 'required',
     ];
 
     

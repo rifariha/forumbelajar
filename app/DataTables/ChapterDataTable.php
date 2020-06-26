@@ -2,12 +2,12 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Models\Chapter;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use DB;
 
-class UserDataTable extends DataTable
+class ChapterDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,11 +18,11 @@ class UserDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-
-        $dataTable->addColumn('action', 'users.datatables_actions');
-        $dataTable->editColumn('status', function ($data) {
-            return ($data->status == 1) ? 'Aktif' : 'Tidak Aktif';
-        });
+        $dataTable->addColumn('action', 'chapters.datatables_actions');
+        $dataTable->editColumn('image', function ($data) {
+            $url = asset('storage/' . $data->image);
+            return '<img src="' . $url . '" border="0" width="100" align="center" />';
+        })->rawColumns(['image', 'action'])->make(true);
 
         return $dataTable;
     }
@@ -30,18 +30,18 @@ class UserDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\User $model
+     * @param \App\Models\Chapter $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(Chapter $model)
     {
-        DB::statement(DB::raw('set @rownum=0'));
-        $model = User::select([
-            DB::raw('@rownum := @rownum + 1 AS number'),
-            'users.*',
-        ])->where('id','!=','1')->where('id', '!=', '2');
-
-        return $model;
+        // DB::statement(DB::raw('set @rownum=0'));
+        // $model = Chapter::select([
+        //     DB::raw('@rownum := @rownum + 1 AS number'),
+        //     'chapters.*',
+        // ]);
+        // return $model;
+        return $model->newQuery();
     }
 
     /**
@@ -70,16 +70,11 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'number', 'title' => 'No', 'searchable' => false],
-            ['data' => 'name', 'title'=> 'Nama'],
-            ['data' => 'email', 'title' => 'Email'],
-            ['data' => 'phone', 'title' => 'No. Telepon'],
-            ['data' => 'address', 'title' => 'Alamat'],
-            ['data' => 'status', 'title' => 'Status'],
-            ['data' => 'bmkz_origin', 'title' => 'Asal BMKZ'],
-            ['data' => 'mz_origin', 'title' => 'Asal MZ'],
-            ['data' => 'suluk', 'title' => 'Suluk'],
-            ['data' => 'alumni', 'title' => 'Alumni'],
+            // ['data' => 'number', 'title' => 'No', 'searchable' => false],
+            ['data' => 'image', 'title' => 'Cover', 'searchable' => false],
+            ['data' => 'chapter_name', 'title' => 'Judul Bab'],
+            ['data' => 'short_description', 'title' => 'Deskripsi Singkat'],
+            ['data' => 'description', 'title' => 'Deskripsi'],
         ];
     }
 

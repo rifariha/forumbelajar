@@ -6,9 +6,9 @@ use App\Models\Chapter;
 use App\Repositories\BaseRepository;
 
 /**
- * Class chapterRepository
+ * Class ChapterRepository
  * @package App\Repositories
- * @version June 23, 2020, 3:29 am UTC
+ * @version June 26, 2020, 3:24 am UTC
 */
 
 class ChapterRepository extends BaseRepository
@@ -20,7 +20,7 @@ class ChapterRepository extends BaseRepository
         'chapter_name',
         'short_description',
         'description',
-        'image'
+        // 'image'
     ];
 
     /**
@@ -38,6 +38,6 @@ class ChapterRepository extends BaseRepository
      **/
     public function model()
     {
-        return chapter::class;
+        return Chapter::class;
     }
 }

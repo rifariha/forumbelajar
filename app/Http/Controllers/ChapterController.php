@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatechapterRequest;
-use App\Http\Requests\UpdatechapterRequest;
+use App\DataTables\ChapterDataTable;
+use App\Http\Requests;
+use App\Http\Requests\CreateChapterRequest;
+use App\Http\Requests\UpdateChapterRequest;
 use App\Repositories\ChapterRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Str;
 use Response;
 
 class ChapterController extends AppBaseController
@@ -15,29 +17,24 @@ class ChapterController extends AppBaseController
     /** @var  ChapterRepository */
     private $chapterRepository;
 
-    public function __construct(chapterRepository $chapterRepo)
+    public function __construct(ChapterRepository $chapterRepo)
     {
         $this->chapterRepository = $chapterRepo;
-        $this->middleware(['auth', 'clearance'])->except('index', 'show');
     }
 
     /**
-     * Display a listing of the chapter.
+     * Display a listing of the Chapter.
      *
-     * @param Request $request
-     *
+     * @param ChapterDataTable $chapterDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(ChapterDataTable $chapterDataTable)
     {
-        $chapters = $this->chapterRepository->all();
-
-        return view('chapters.index')
-            ->with('chapters', $chapters);
+        return $chapterDataTable->render('chapters.index');
     }
 
     /**
-     * Show the form for creating a new chapter.
+     * Show the form for creating a new Chapter.
      *
      * @return Response
      */
@@ -47,27 +44,37 @@ class ChapterController extends AppBaseController
     }
 
     /**
-     * Store a newly created chapter in storage.
+     * Store a newly created Chapter in storage.
      *
-     * @param CreatechapterRequest $request
+     * @param CreateChapterRequest $request
      *
      * @return Response
      */
-    public function store(CreatechapterRequest $request)
+    public function store(CreateChapterRequest $request)
     {
         $input = $request->all();
 
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $ext = $file->getClientOriginalExtension();
+            $path = $request->file('image')->storeAs('coverbab', Str::slug($request->chapter_name).'.'.$ext);
+            $input['image'] = $path;
+        }
+        else {
+            $input['image'] = 'coverbab/default_cover.jpg';
+        }
+        
         $chapter = $this->chapterRepository->create($input);
 
-        Flash::success('Chapter saved successfully.');
+        Flash::success('Bab berhasil ditambah.');
 
         return redirect(route('chapters.index'));
     }
 
     /**
-     * Display the specified chapter.
+     * Display the specified Chapter.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -85,9 +92,9 @@ class ChapterController extends AppBaseController
     }
 
     /**
-     * Show the form for editing the specified chapter.
+     * Show the form for editing the specified Chapter.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -105,36 +112,60 @@ class ChapterController extends AppBaseController
     }
 
     /**
-     * Update the specified chapter in storage.
+     * Update the specified Chapter in storage.
      *
-     * @param int $id
-     * @param UpdatechapterRequest $request
+     * @param  int              $id
+     * @param UpdateChapterRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdatechapterRequest $request)
+    public function update($id, UpdateChapterRequest $request)
     {
         $chapter = $this->chapterRepository->find($id);
-
+        $input = $request->all();
         if (empty($chapter)) {
-            Flash::error('Chapter not found');
+            Flash::error('Bab Tidak Ditemukan');
 
             return redirect(route('chapters.index'));
         }
 
-        $chapter = $this->chapterRepository->update($request->all(), $id);
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $ext = $file->getClientOriginalExtension();
+            $size = $file->getSize();;
+            $allowed = ['jpg','png','jpeg'];
 
-        Flash::success('Chapter updated successfully.');
+            if(!in_array($ext, $allowed))
+            {
+                Flash::error('Ekstensi harus berformat jpg/png');
+                return redirect()->back();
+            }
+
+            if($size < 15000)
+            {
+                Flash::error('Ukuran maksimal gambar 1 MB');
+                return redirect()->back();
+            }
+
+            $path = $request->file('image')->storeAs('coverbab', Str::slug($request->chapter_name) . '.' . $ext);
+            $input['image'] = $path;
+        }
+        else
+        {
+            $input['image'] = $chapter->image;
+        }
+        
+        $chapter = $this->chapterRepository->update($input, $id);
+
+        Flash::success('Bab berhasil diupdate.');
 
         return redirect(route('chapters.index'));
     }
 
     /**
-     * Remove the specified chapter from storage.
+     * Remove the specified Chapter from storage.
      *
-     * @param int $id
-     *
-     * @throws \Exception
+     * @param  int $id
      *
      * @return Response
      */
