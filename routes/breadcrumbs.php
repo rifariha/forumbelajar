@@ -20,5 +20,5 @@ Breadcrumbs::register('bab', function ($breadcrumbs) {
 // Home > Bab > [JudulBab] 
 Breadcrumbs::register('materi', function ($breadcrumbs, $chapter) {
     $breadcrumbs->parent('bab');
-    $breadcrumbs->push($chapter->chapter_name, route('topics.show', $chapter->id));
+    $breadcrumbs->push($chapter->chapter_name, route('chapters.show', $chapter->id));
 });

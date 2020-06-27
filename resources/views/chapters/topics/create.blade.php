@@ -11,7 +11,8 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'topics.store']) !!}
+                    <?php $chapter_id = request()->segment(2); ?>
+                    {!! Form::open(['route' => ['topics.store',$chapter_id]]) !!}
 
                         @include('chapters.topics.fields')
 

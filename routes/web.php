@@ -25,6 +25,12 @@ Auth::routes(['verify' => true]);
 
 Route::prefix('chapters')->group(function () {
     Route::get('/{id}/topics', 'TopicController@index')->name('chapters.show');
+    Route::get('/{id}/topics/{topic_id}/show', 'TopicController@show')->name('topics.show');
+    Route::get('/{id}/topics/create', 'TopicController@create')->name('topics.create');
+    Route::post('/{id}/topics/create', 'TopicController@store')->name('topics.store');
+    Route::get('/{id}/topics/{topic_id}/edit', 'TopicController@edit')->name('topics.edit');
+    Route::patch('/{id}/topics/{topic_id}/update', 'TopicController@update')->name('topics.update');
+    Route::delete('/{id}/topics/{topic_id}/delete', 'TopicController@destroy')->name('topics.destroy');
     
     Route::get('/', 'chapterController@index')->name('chapters.index');
     Route::get('/create', 'chapterController@create')->name('chapters.create');
@@ -34,7 +40,7 @@ Route::prefix('chapters')->group(function () {
     Route::delete('/{id}/delete', 'chapterController@destroy')->name('chapters.destroy');
 });
 
-Route::resource('topics', 'TopicController');
+// Route::resource('topics', 'TopicController');
 
 Route::resource('topicLessons', 'TopicLessonController');
 

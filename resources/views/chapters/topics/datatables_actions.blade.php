@@ -1,10 +1,11 @@
-{!! Form::open(['route' => ['topics.destroy', $id], 'method' => 'delete']) !!}
+<?php $chapter_id = request()->segment(2); ?>
+{!! Form::open(['route' => ['topics.destroy', $chapter_id,$id], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    <a href="{{ route('topics.show', $id) }}" class='btn btn-primary btn-md'>
+    <a href="{{ route('topics.show', [$chapter_id,$id]) }}" class='btn btn-primary btn-md'>
         Lihat Materi
     </a>
     @can('edit-materi')
-    <a href="{{ route('topics.edit', $id) }}" class='btn btn-default btn-md'>
+    <a href="{{ route('topics.edit', [$chapter_id,$id]) }}" class='btn btn-default btn-md'>
         <i class="glyphicon glyphicon-edit"></i>
     </a>
     @endcan

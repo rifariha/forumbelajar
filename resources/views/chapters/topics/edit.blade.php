@@ -11,9 +11,10 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($topic, ['route' => ['topics.update', $topic->id], 'method' => 'patch']) !!}
+                   <?php $chapter_id = request()->segment(2); ?>
+                   {!! Form::model($topic, ['route' => ['topics.update', $chapter_id,$topic->id], 'method' => 'patch']) !!}
 
-                        @include('chapter.topics.fields')
+                        @include('chapters.topics.fields')
 
                    {!! Form::close() !!}
                </div>

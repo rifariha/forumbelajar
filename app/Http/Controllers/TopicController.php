@@ -28,10 +28,11 @@ class TopicController extends AppBaseController
      * @param TopicDataTable $topicDataTable
      * @return Response
      */
-    public function index(TopicDataTable $topicDataTable)
+    public function index($id, TopicDataTable $topicDataTable)
     {
         $chapterId = request()->segment(2);
         $chapter = Chapter::find($chapterId);
+        
         return $topicDataTable->render('chapters.topics.index',compact('chapter'));
     }
 
@@ -42,7 +43,8 @@ class TopicController extends AppBaseController
      */
     public function create()
     {
-        return view('topics.create');
+        $chapterId = request()->segment(2);
+        return view('chapters.topics.create');
     }
 
     /**
@@ -52,7 +54,7 @@ class TopicController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateTopicRequest $request)
+    public function store($id, CreateTopicRequest $request)
     {
         $input = $request->all();
 
@@ -60,7 +62,7 @@ class TopicController extends AppBaseController
 
         Flash::success('Topic saved successfully.');
 
-        return redirect(route('topics.index'));
+        return redirect(route('chapter.show'));
     }
 
     /**
@@ -70,17 +72,17 @@ class TopicController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show($id,$topic_id)
     {
         $topic = $this->topicRepository->find($id);
 
         if (empty($topic)) {
             Flash::error('Topic not found');
 
-            return redirect(route('topics.index'));
+            return redirect(route('chapter.show'));
         }
 
-        return view('topics.show')->with('topic', $topic);
+        return view('chapters.topics.show')->with('topic', $topic);
     }
 
     /**
@@ -97,10 +99,10 @@ class TopicController extends AppBaseController
         if (empty($topic)) {
             Flash::error('Topic not found');
 
-            return redirect(route('topics.index'));
+            return redirect(route('chapter.show'));
         }
 
-        return view('topics.edit')->with('topic', $topic);
+        return view('chapters.topics.edit')->with('topic', $topic);
     }
 
     /**
