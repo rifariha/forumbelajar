@@ -31,6 +31,11 @@
     .red {
         color:red;
     }
+    .breadcrumb{
+        background-color:white;
+        font-weight: bold;
+        /* border-radius: 15px; */
+    }
     </style>
     @yield('css')
 </head>

@@ -3,10 +3,13 @@
 @section('content')
     <section class="content-header">
         <h1>
-            User
+            Edit User
         </h1>
    </section>
    <div class="content">
+       <div>
+            {{ Breadcrumbs::render('users') }}
+        </div>
        @include('flash::message')
        @include('adminlte-templates::common.errors')
        <div class="box box-primary">
