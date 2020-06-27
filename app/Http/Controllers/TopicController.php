@@ -9,8 +9,10 @@ use App\Http\Requests\UpdateTopicRequest;
 use App\Repositories\TopicRepository;
 use Flash;
 use App\Models\Chapter;
+use Illuminate\Support\Str;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Auth;
 
 class TopicController extends AppBaseController
 {
@@ -41,10 +43,10 @@ class TopicController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create($id)
     {
-        $chapterId = request()->segment(2);
-        return view('chapters.topics.create');
+        $chapter = Chapter::find($id);
+        return view('chapters.topics.create',compact('chapter'));
     }
 
     /**
@@ -57,12 +59,34 @@ class TopicController extends AppBaseController
     public function store($id, CreateTopicRequest $request)
     {
         $input = $request->all();
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $ext = $file->getClientOriginalExtension();
+            $size = $file->getSize();
+            $allowed = ['jpg', 'png', 'jpeg'];
+            if ($size < 15000) {
+                Flash::error('Ukuran maksimal gambar 1 MB');
+                return redirect()->back();
+            }
 
+            if (!in_array($ext, $allowed)) {
+                Flash::error('Ekstensi harus berformat jpg/png');
+                return redirect()->back();
+            }
+
+            $path = $request->file('image')->storeAs('covermateri', Str::slug($request->topic_name).'.'.$ext);
+            $input['image'] = $path;
+        }
+        else {
+            $input['image'] = 'covermateri/default_cover.jpg';
+        }
+        $input['chapter_id'] = $id;
+        $input['created_by'] = Auth::user()->name;
         $topic = $this->topicRepository->create($input);
 
-        Flash::success('Topic saved successfully.');
+        Flash::success('Materi berhasil ditambah.');
 
-        return redirect(route('chapter.show'));
+        return redirect(route('chapters.show',[$id]));
     }
 
     /**
@@ -92,17 +116,17 @@ class TopicController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit($id,$topic_id)
     {
-        $topic = $this->topicRepository->find($id);
+        $topic = $this->topicRepository->find($topic_id);
 
         if (empty($topic)) {
             Flash::error('Topic not found');
 
             return redirect(route('chapter.show'));
         }
-
-        return view('chapters.topics.edit')->with('topic', $topic);
+        $chapter = Chapter::find($id);
+        return view('chapters.topics.edit', compact('topic', 'chapter'));
     }
 
     /**
@@ -113,21 +137,43 @@ class TopicController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateTopicRequest $request)
+    public function update($id,$topic_id, UpdateTopicRequest $request)
     {
-        $topic = $this->topicRepository->find($id);
-
+        $topic = $this->topicRepository->find($topic_id);
+        $input = $request->all();
         if (empty($topic)) {
             Flash::error('Topic not found');
 
             return redirect(route('topics.index'));
         }
 
-        $topic = $this->topicRepository->update($request->all(), $id);
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $ext = $file->getClientOriginalExtension();
+            $size = $file->getSize();
+            $allowed = ['jpg', 'png', 'jpeg'];
 
-        Flash::success('Topic updated successfully.');
+            if (!in_array($ext, $allowed)) {
+                Flash::error('Ekstensi harus berformat jpg/png');
+                return redirect()->back();
+            }
 
-        return redirect(route('topics.index'));
+            if ($size < 15000) {
+                Flash::error('Ukuran maksimal gambar 1 MB');
+                return redirect()->back();
+            }
+
+            $path = $request->file('image')->storeAs('covermateri', Str::slug($request->topic_name) . '.' . $ext);
+            $input['image'] = $path;
+        } else {
+            $input['image'] = $topic->image;
+        }
+
+        $topic = $this->topicRepository->update($input, $topic_id);
+        
+        Flash::success('Materi berhasil diupdate.');
+
+        return redirect(route('chapters.show', [$id]));
     }
 
     /**
@@ -137,9 +183,9 @@ class TopicController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id, $topic_id)
     {
-        $topic = $this->topicRepository->find($id);
+        $topic = $this->topicRepository->find($topic_id);
 
         if (empty($topic)) {
             Flash::error('Topic not found');
@@ -147,10 +193,10 @@ class TopicController extends AppBaseController
             return redirect(route('topics.index'));
         }
 
-        $this->topicRepository->delete($id);
+        $this->topicRepository->delete($topic_id);
 
         Flash::success('Topic deleted successfully.');
 
-        return redirect(route('topics.index'));
+        return redirect(route('chapters.show', [$id]));
     }
 }

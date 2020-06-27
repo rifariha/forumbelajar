@@ -57,6 +57,19 @@ class ChapterController extends AppBaseController
         if ($request->hasFile('image')) {
             $file = $request->image;
             $ext = $file->getClientOriginalExtension();
+            $size = $file->getSize();
+            $allowed = ['jpg', 'png', 'jpeg'];
+
+            if (!in_array($ext, $allowed)) {
+                Flash::error('Ekstensi harus berformat jpg/png');
+                return redirect()->back();
+            }
+
+            if ($size < 15000) {
+                Flash::error('Ukuran maksimal gambar 1 MB');
+                return redirect()->back();
+            }
+            
             $path = $request->file('image')->storeAs('coverbab', Str::slug($request->chapter_name).'.'.$ext);
             $input['image'] = $path;
         }
@@ -132,7 +145,7 @@ class ChapterController extends AppBaseController
         if ($request->hasFile('image')) {
             $file = $request->image;
             $ext = $file->getClientOriginalExtension();
-            $size = $file->getSize();;
+            $size = $file->getSize();
             $allowed = ['jpg','png','jpeg'];
 
             if(!in_array($ext, $allowed))

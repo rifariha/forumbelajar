@@ -51,7 +51,6 @@ class Chapter extends Model
         'chapter_name' => 'required',
         'short_description' => 'required',
         'description' => 'required',
-        'image' => 'required|max:15000|mimes:jpg,png,jpeg'
     ];
 
     public static $editrules = [

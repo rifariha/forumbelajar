@@ -3,6 +3,8 @@
 @section('content')
     <section class="content-header">
     <h1 class="pull-left">Materi {{$chapter->chapter_name}}</h1><br><br>
+     <p align="justify"> {{$chapter->description}} </p>
+    <br>
         <div>
             {{ Breadcrumbs::render('materi',$chapter) }}
         </div>

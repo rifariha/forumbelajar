@@ -25,7 +25,7 @@ class UpdateTopicRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Topic::$rules;
+        $rules = Topic::$editrules;
         
         return $rules;
     }

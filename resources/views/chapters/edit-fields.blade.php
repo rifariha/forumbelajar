@@ -1,18 +1,18 @@
 <!-- Chapter Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('chapter_name', 'Judul Bab:') !!}
+    {!! Form::label('chapter_name', 'Judul Bab:', ['class' => 'required']) !!}
     {!! Form::text('chapter_name', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Short Description Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('short_description', 'Deskripsi Singkat:') !!}
+    {!! Form::label('short_description', 'Deskripsi Singkat:', ['class' => 'required']) !!}
     {!! Form::text('short_description', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Description Field -->
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('description', 'Deskripsi Lengkap:') !!}
+    {!! Form::label('description', 'Deskripsi Lengkap:', ['class' => 'required']) !!}
     {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
 </div>
 

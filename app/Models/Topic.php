@@ -54,11 +54,12 @@ class Topic extends Model
      * @var array
      */
     public static $rules = [
-        'chapter_id' => 'required',
         'topic_name' => 'required',
-        'created_by' => 'required',
-        'short_description' => 'required'
+        'short_description' => 'required',
     ];
 
-    
+    public static $editrules = [
+        'topic_name' => 'required',
+        'short_description' => 'required',
+    ];
 }

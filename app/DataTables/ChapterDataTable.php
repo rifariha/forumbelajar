@@ -74,7 +74,6 @@ class ChapterDataTable extends DataTable
             ['data' => 'image', 'title' => 'Cover', 'searchable' => false],
             ['data' => 'chapter_name', 'title' => 'Judul Bab'],
             ['data' => 'short_description', 'title' => 'Deskripsi Singkat'],
-            ['data' => 'description', 'title' => 'Deskripsi'],
         ];
     }
 

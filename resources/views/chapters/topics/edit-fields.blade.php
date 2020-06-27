@@ -1,4 +1,3 @@
-
 <!-- Topic Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('topic_name', 'Judul Materi:', ['class' => 'required']) !!}
@@ -13,11 +12,12 @@
 
 <!-- Image Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('image', 'Cover:') !!}
+    {!! Form::label('image', 'Ganti Cover:') !!}
     {!! Form::file('image', null, ['class' => 'form-control']) !!}
     <i class="red"> Maksimal 1 Mb </i>
+     <br>
+     <img src="{{ url('storage/'.$topic->image) }}" >
 </div>
-
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
