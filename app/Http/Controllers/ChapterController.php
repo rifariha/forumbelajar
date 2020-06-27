@@ -88,7 +88,7 @@ class ChapterController extends AppBaseController
             return redirect(route('chapters.index'));
         }
 
-        return view('chapters.show')->with('chapter', $chapter);
+        return view('topics.show')->with('chapter', $chapter);
     }
 
     /**

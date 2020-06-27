@@ -13,7 +13,7 @@
                <div class="row">
                    {!! Form::model($topic, ['route' => ['topics.update', $topic->id], 'method' => 'patch']) !!}
 
-                        @include('topics.fields')
+                        @include('chapter.topics.fields')
 
                    {!! Form::close() !!}
                </div>

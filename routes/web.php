@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomePageController@index');
 
 Auth::routes();
 
@@ -24,13 +22,27 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->middleware('verified');
 
-Route::resource('chapters', 'chapterController');
+// Route::resource('chapters', 'chapterController');
+
+Route::prefix('chapters')->group(function () {
+    Route::get('/{id}/topics', 'TopicController@index')->name('chapters.show');
+    
+    Route::get('/', 'chapterController@index')->name('chapters.index');
+    Route::get('/create', 'chapterController@create')->name('chapters.create');
+    Route::post('/store', 'chapterController@store')->name('chapters.store');
+    Route::get('/{id}/edit', 'chapterController@edit')->name('chapters.edit');
+    Route::patch('/{id}/update', 'chapterController@update')->name('chapters.update');
+    Route::delete('/{id}/delete', 'chapterController@destroy')->name('chapters.destroy');
+});
+
+Route::resource('topics', 'TopicController');
+
+Route::resource('topicLessons', 'TopicLessonController');
 
 Route::resource('permissions', 'PermissionController');
 
@@ -50,11 +62,7 @@ Route::resource('newsCategories', 'NewsCategoryController');
 
 Route::resource('sliders', 'SliderController');
 
-Route::resource('topics', 'TopicController');
-
-Route::resource('topicLessons', 'TopicLessonController');
 
 Route::resource('backupLogs', 'BackupLogController');
-
 
 Route::resource('cms', 'CmsController');

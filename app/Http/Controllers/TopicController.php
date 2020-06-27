@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\TopicDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
 use App\Repositories\TopicRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use App\Models\Chapter;
+use App\Http\Controllers\AppBaseController;
 use Response;
 
 class TopicController extends AppBaseController
@@ -23,16 +25,14 @@ class TopicController extends AppBaseController
     /**
      * Display a listing of the Topic.
      *
-     * @param Request $request
-     *
+     * @param TopicDataTable $topicDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(TopicDataTable $topicDataTable)
     {
-        $topics = $this->topicRepository->all();
-
-        return view('topics.index')
-            ->with('topics', $topics);
+        $chapterId = request()->segment(2);
+        $chapter = Chapter::find($chapterId);
+        return $topicDataTable->render('chapters.topics.index',compact('chapter'));
     }
 
     /**
@@ -66,7 +66,7 @@ class TopicController extends AppBaseController
     /**
      * Display the specified Topic.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -86,7 +86,7 @@ class TopicController extends AppBaseController
     /**
      * Show the form for editing the specified Topic.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -106,7 +106,7 @@ class TopicController extends AppBaseController
     /**
      * Update the specified Topic in storage.
      *
-     * @param int $id
+     * @param  int              $id
      * @param UpdateTopicRequest $request
      *
      * @return Response
@@ -131,9 +131,7 @@ class TopicController extends AppBaseController
     /**
      * Remove the specified Topic from storage.
      *
-     * @param int $id
-     *
-     * @throws \Exception
+     * @param  int $id
      *
      * @return Response
      */

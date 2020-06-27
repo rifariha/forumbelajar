@@ -1,7 +1,7 @@
 {!! Form::open(['route' => ['chapters.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    <a href="{{ route('chapters.show', $id) }}" class='btn btn-default btn-sm'>
-        <i class="glyphicon glyphicon-eye-open"></i>
+    <a href="{{ route('chapters.show', $id) }}" class='btn btn-primary btn-sm'>
+         Lihat Daftar Materi
     </a>
     @can('edit-bab')
     <a href="{{ route('chapters.edit', $id) }}" class='btn btn-default btn-sm'>

@@ -7,7 +7,7 @@ use Eloquent as Model;
 /**
  * Class Topic
  * @package App\Models
- * @version June 23, 2020, 11:50 am UTC
+ * @version June 26, 2020, 10:36 am UTC
  *
  * @property integer $chapter_id
  * @property string $image
@@ -23,8 +23,6 @@ class Topic extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
-    protected $dates = ['deleted_at'];
 
 
 
