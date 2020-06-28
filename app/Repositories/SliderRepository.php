@@ -8,7 +8,7 @@ use App\Repositories\BaseRepository;
 /**
  * Class SliderRepository
  * @package App\Repositories
- * @version June 23, 2020, 11:50 am UTC
+ * @version June 28, 2020, 8:35 am UTC
 */
 
 class SliderRepository extends BaseRepository

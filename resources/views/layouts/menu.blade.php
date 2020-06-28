@@ -68,5 +68,3 @@
 {{-- <li class="{{ Request::is('backupLogs*') ? 'active' : '' }}">
     <a href="{{ route('backupLogs.index') }}"><i class="fa fa-edit"></i><span>Backup Logs</span></a>
 </li> --}}
-
-

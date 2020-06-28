@@ -7,7 +7,7 @@ use Eloquent as Model;
 /**
  * Class Slider
  * @package App\Models
- * @version June 23, 2020, 11:50 am UTC
+ * @version June 28, 2020, 8:35 am UTC
  *
  * @property string $slider_name
  * @property string $image
@@ -21,8 +21,6 @@ class Slider extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
-    protected $dates = ['deleted_at'];
 
 
 
@@ -51,7 +49,7 @@ class Slider extends Model
      */
     public static $rules = [
         'slider_name' => 'required',
-        'image' => 'required'
+        'image' => 'required|mimes:jpg,jpeg,png|max:1500',
     ];
 
     

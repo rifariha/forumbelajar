@@ -17,6 +17,12 @@ Breadcrumbs::register('gallery', function ($breadcrumbs) {
     $breadcrumbs->push('Dokumentasi', route('galleries.index'));
 });
 
+// Home > Slider
+Breadcrumbs::register('slider', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Slider', route('sliders.index'));
+});
+
 // Home > Bab
 Breadcrumbs::register('bab', function ($breadcrumbs) {
     $breadcrumbs->parent('home');

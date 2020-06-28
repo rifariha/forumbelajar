@@ -127,6 +127,30 @@ class ClearanceMiddleware
             }
         }
 
+        if ($request->is('slider/create')) {
+            if (!Auth::user()->hasPermissionTo('tambah-slider')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->is('slider/*/edit')) {
+            if (!Auth::user()->hasPermissionTo('edit-slider')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->isMethod('Delete')) {
+            if (!Auth::user()->hasPermissionTo('hapus-slider')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
 
         return $next($request);
     }

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\SliderDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateSliderRequest;
 use App\Http\Requests\UpdateSliderRequest;
 use App\Repositories\SliderRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use App\Http\Controllers\AppBaseController;
 use Response;
+use Illuminate\Support\Str;
 
 class SliderController extends AppBaseController
 {
@@ -17,23 +19,18 @@ class SliderController extends AppBaseController
 
     public function __construct(SliderRepository $sliderRepo)
     {
-        $this->middleware(['auth', 'isAdmin']);
         $this->sliderRepository = $sliderRepo;
     }
 
     /**
      * Display a listing of the Slider.
      *
-     * @param Request $request
-     *
+     * @param SliderDataTable $sliderDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(SliderDataTable $sliderDataTable)
     {
-        $sliders = $this->sliderRepository->all();
-
-        return view('sliders.index')
-            ->with('sliders', $sliders);
+        return $sliderDataTable->render('sliders.index');
     }
 
     /**
@@ -57,9 +54,17 @@ class SliderController extends AppBaseController
     {
         $input = $request->all();
 
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $ext = $file->getClientOriginalExtension();
+
+            $path = $request->file('image')->storeAs('gallery', Str::slug($request->slider_name) . '.' . $ext);
+            $input['image'] = $path;
+        }
+
         $slider = $this->sliderRepository->create($input);
 
-        Flash::success('Slider saved successfully.');
+        Flash::success('Slider berhasil dibuat.');
 
         return redirect(route('sliders.index'));
     }
@@ -67,7 +72,7 @@ class SliderController extends AppBaseController
     /**
      * Display the specified Slider.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -76,7 +81,7 @@ class SliderController extends AppBaseController
         $slider = $this->sliderRepository->find($id);
 
         if (empty($slider)) {
-            Flash::error('Slider not found');
+            Flash::error('Slider tidak ditemukan');
 
             return redirect(route('sliders.index'));
         }
@@ -87,7 +92,7 @@ class SliderController extends AppBaseController
     /**
      * Show the form for editing the specified Slider.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -96,7 +101,7 @@ class SliderController extends AppBaseController
         $slider = $this->sliderRepository->find($id);
 
         if (empty($slider)) {
-            Flash::error('Slider not found');
+            Flash::error('Slider tidak ditemukan');
 
             return redirect(route('sliders.index'));
         }
@@ -107,7 +112,7 @@ class SliderController extends AppBaseController
     /**
      * Update the specified Slider in storage.
      *
-     * @param int $id
+     * @param  int              $id
      * @param UpdateSliderRequest $request
      *
      * @return Response
@@ -115,16 +120,25 @@ class SliderController extends AppBaseController
     public function update($id, UpdateSliderRequest $request)
     {
         $slider = $this->sliderRepository->find($id);
+        $input = $request->all();
 
         if (empty($slider)) {
-            Flash::error('Slider not found');
+            Flash::error('Slider tidak ditemukan');
 
             return redirect(route('sliders.index'));
         }
 
-        $slider = $this->sliderRepository->update($request->all(), $id);
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $ext = $file->getClientOriginalExtension();
 
-        Flash::success('Slider updated successfully.');
+            $path = $request->file('image')->storeAs('gallery', Str::slug($request->slider_name) . '.' . $ext);
+            $input['image'] = $path;
+        }
+
+        $slider = $this->sliderRepository->update($input, $id);
+
+        Flash::success('Slider berhasil diupdate.');
 
         return redirect(route('sliders.index'));
     }
@@ -132,9 +146,7 @@ class SliderController extends AppBaseController
     /**
      * Remove the specified Slider from storage.
      *
-     * @param int $id
-     *
-     * @throws \Exception
+     * @param  int $id
      *
      * @return Response
      */
@@ -143,14 +155,14 @@ class SliderController extends AppBaseController
         $slider = $this->sliderRepository->find($id);
 
         if (empty($slider)) {
-            Flash::error('Slider not found');
+            Flash::error('Slider tidak ditemukan');
 
             return redirect(route('sliders.index'));
         }
 
         $this->sliderRepository->delete($id);
 
-        Flash::success('Slider deleted successfully.');
+        Flash::success('Slider berhasil dihapus.');
 
         return redirect(route('sliders.index'));
     }
