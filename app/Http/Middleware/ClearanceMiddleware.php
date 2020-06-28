@@ -100,6 +100,33 @@ class ClearanceMiddleware
             }
         }
 
+        if ($request->is('gallery/create')) 
+        {
+            if (!Auth::user()->hasPermissionTo('tambah-gallery')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->is('gallery/*/edit'))
+        {
+            if (!Auth::user()->hasPermissionTo('edit-gallery')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->isMethod('Delete')) 
+        {
+            if (!Auth::user()->hasPermissionTo('hapus-gallery')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
 
         return $next($request);
     }

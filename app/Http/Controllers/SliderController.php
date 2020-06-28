@@ -17,6 +17,7 @@ class SliderController extends AppBaseController
 
     public function __construct(SliderRepository $sliderRepo)
     {
+        $this->middleware(['auth', 'isAdmin']);
         $this->sliderRepository = $sliderRepo;
     }
 

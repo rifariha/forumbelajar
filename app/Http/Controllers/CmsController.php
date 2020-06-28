@@ -18,6 +18,7 @@ class CmsController extends AppBaseController
 
     public function __construct(CmsRepository $cmsRepo)
     {
+        $this->middleware(['auth', 'isAdmin']);
         $this->cmsRepository = $cmsRepo;
     }
 

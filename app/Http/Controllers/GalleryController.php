@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\GalleryDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
 use App\Repositories\GalleryRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use App\Http\Controllers\AppBaseController;
 use Response;
+use Illuminate\Support\Str;
 
 class GalleryController extends AppBaseController
 {
@@ -17,22 +19,19 @@ class GalleryController extends AppBaseController
 
     public function __construct(GalleryRepository $galleryRepo)
     {
+        $this->middleware(['auth', 'isAdmin']);
         $this->galleryRepository = $galleryRepo;
     }
 
     /**
      * Display a listing of the Gallery.
      *
-     * @param Request $request
-     *
+     * @param GalleryDataTable $galleryDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(GalleryDataTable $galleryDataTable)
     {
-        $galleries = $this->galleryRepository->all();
-
-        return view('galleries.index')
-            ->with('galleries', $galleries);
+        return $galleryDataTable->render('galleries.index');
     }
 
     /**
@@ -56,9 +55,17 @@ class GalleryController extends AppBaseController
     {
         $input = $request->all();
 
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $ext = $file->getClientOriginalExtension();
+            
+            $path = $request->file('image')->storeAs('gallery', Str::slug($request->short_description) . '.' . $ext);
+            $input['image'] = $path;
+        }
+
         $gallery = $this->galleryRepository->create($input);
 
-        Flash::success('Gallery saved successfully.');
+        Flash::success('Dokumentasi berhasil ditambah.');
 
         return redirect(route('galleries.index'));
     }
@@ -66,7 +73,7 @@ class GalleryController extends AppBaseController
     /**
      * Display the specified Gallery.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -75,7 +82,7 @@ class GalleryController extends AppBaseController
         $gallery = $this->galleryRepository->find($id);
 
         if (empty($gallery)) {
-            Flash::error('Gallery not found');
+            Flash::error('Dokumentasi tidak ditemukan');
 
             return redirect(route('galleries.index'));
         }
@@ -86,7 +93,7 @@ class GalleryController extends AppBaseController
     /**
      * Show the form for editing the specified Gallery.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -95,7 +102,7 @@ class GalleryController extends AppBaseController
         $gallery = $this->galleryRepository->find($id);
 
         if (empty($gallery)) {
-            Flash::error('Gallery not found');
+            Flash::error('Dokumentasi tidak ditemukan');
 
             return redirect(route('galleries.index'));
         }
@@ -106,7 +113,7 @@ class GalleryController extends AppBaseController
     /**
      * Update the specified Gallery in storage.
      *
-     * @param int $id
+     * @param  int              $id
      * @param UpdateGalleryRequest $request
      *
      * @return Response
@@ -114,16 +121,24 @@ class GalleryController extends AppBaseController
     public function update($id, UpdateGalleryRequest $request)
     {
         $gallery = $this->galleryRepository->find($id);
-
+        $input = $request->all();
         if (empty($gallery)) {
-            Flash::error('Gallery not found');
+            Flash::error('Dokumentasi tidak ditemukan');
 
             return redirect(route('galleries.index'));
         }
 
-        $gallery = $this->galleryRepository->update($request->all(), $id);
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $ext = $file->getClientOriginalExtension();
 
-        Flash::success('Gallery updated successfully.');
+            $path = $request->file('image')->storeAs('gallery', Str::slug($request->short_description) . '.' . $ext);
+            $input['image'] = $path;
+        }
+
+        $gallery = $this->galleryRepository->update($input, $id);
+
+        Flash::success('Dokumentasi berhasil diupdate.');
 
         return redirect(route('galleries.index'));
     }
@@ -131,9 +146,7 @@ class GalleryController extends AppBaseController
     /**
      * Remove the specified Gallery from storage.
      *
-     * @param int $id
-     *
-     * @throws \Exception
+     * @param  int $id
      *
      * @return Response
      */
@@ -142,14 +155,14 @@ class GalleryController extends AppBaseController
         $gallery = $this->galleryRepository->find($id);
 
         if (empty($gallery)) {
-            Flash::error('Gallery not found');
+            Flash::error('Dokumentasi tidak ditemukan');
 
             return redirect(route('galleries.index'));
         }
 
         $this->galleryRepository->delete($id);
 
-        Flash::success('Gallery deleted successfully.');
+        Flash::success('Dokumentasi berhasil dihapus.');
 
         return redirect(route('galleries.index'));
     }

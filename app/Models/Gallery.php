@@ -7,7 +7,7 @@ use Eloquent as Model;
 /**
  * Class Gallery
  * @package App\Models
- * @version June 23, 2020, 11:47 am UTC
+ * @version June 27, 2020, 11:14 am UTC
  *
  * @property string $image
  * @property string $short_description
@@ -20,11 +20,6 @@ class Gallery extends Model
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-
-
-    protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'image',
@@ -50,7 +45,9 @@ class Gallery extends Model
      * @var array
      */
     public static $rules = [
-        
+        'description' => 'required',
+        'short_description' => 'required',
+        'image' => 'required|mimes:jpg,jpeg,png|max:1500',
     ];
 
     
