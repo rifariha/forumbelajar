@@ -2,9 +2,14 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">News Categories</h1>
+        <h1 class="pull-left">Kategori Berita</h1><br><br>
+        <div>
+            {{ Breadcrumbs::render('kategori_berita') }}
+        </div>
         <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('newsCategories.create') }}">Add New</a>
+            @can('tambah-kategori-berita')
+           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('newsCategories.create') }}">Tambah Baru</a>
+           @endcan
         </h1>
     </section>
     <div class="content">

@@ -7,7 +7,7 @@ use Eloquent as Model;
 /**
  * Class NewsCategory
  * @package App\Models
- * @version June 23, 2020, 11:49 am UTC
+ * @version June 28, 2020, 10:31 am UTC
  *
  * @property string $category_name
  */
@@ -19,8 +19,6 @@ class NewsCategory extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
-    protected $dates = ['deleted_at'];
 
 
 

@@ -66,3 +66,5 @@ Route::resource('sliders', 'SliderController');
 Route::resource('backupLogs', 'BackupLogController');
 
 Route::resource('cms', 'CmsController');
+
+Route::resource('newsCategories', 'NewsCategoryController');

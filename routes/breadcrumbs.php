@@ -29,6 +29,20 @@ Breadcrumbs::register('cms', function ($breadcrumbs) {
     $breadcrumbs->push('CMS', route('cms.index'));
 });
 
+// Home > Cms
+Breadcrumbs::register('berita', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Berita', route('news.index'));
+});
+
+
+// Home > Berita > Kategori Berita
+Breadcrumbs::register('kategori_berita', function ($breadcrumbs) {
+    $breadcrumbs->parent('berita');
+    $breadcrumbs->push('Kategori Berita', route('newsCategories.index'));
+});
+
+
 // Home > Bab
 Breadcrumbs::register('bab', function ($breadcrumbs) {
     $breadcrumbs->parent('home');

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\NewsCategoryDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateNewsCategoryRequest;
 use App\Http\Requests\UpdateNewsCategoryRequest;
 use App\Repositories\NewsCategoryRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use App\Http\Controllers\AppBaseController;
 use Response;
 
 class NewsCategoryController extends AppBaseController
@@ -17,23 +18,19 @@ class NewsCategoryController extends AppBaseController
 
     public function __construct(NewsCategoryRepository $newsCategoryRepo)
     {
-        $this->middleware(['auth', 'isAdmin']);
         $this->newsCategoryRepository = $newsCategoryRepo;
     }
 
     /**
      * Display a listing of the NewsCategory.
      *
-     * @param Request $request
-     *
+     * @param NewsCategoryDataTable $newsCategoryDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(NewsCategoryDataTable $newsCategoryDataTable)
     {
-        $newsCategories = $this->newsCategoryRepository->all();
-
-        return view('news_categories.index')
-            ->with('newsCategories', $newsCategories);
+        $this->middleware(['auth', 'isAdmin']);
+        return $newsCategoryDataTable->render('news_categories.index');
     }
 
     /**
@@ -59,7 +56,7 @@ class NewsCategoryController extends AppBaseController
 
         $newsCategory = $this->newsCategoryRepository->create($input);
 
-        Flash::success('News Category saved successfully.');
+        Flash::success('Kategori baru berhasil disimpan.');
 
         return redirect(route('newsCategories.index'));
     }
@@ -67,7 +64,7 @@ class NewsCategoryController extends AppBaseController
     /**
      * Display the specified NewsCategory.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -76,7 +73,7 @@ class NewsCategoryController extends AppBaseController
         $newsCategory = $this->newsCategoryRepository->find($id);
 
         if (empty($newsCategory)) {
-            Flash::error('News Category not found');
+            Flash::error('Kategori tidak ditemukan');
 
             return redirect(route('newsCategories.index'));
         }
@@ -87,7 +84,7 @@ class NewsCategoryController extends AppBaseController
     /**
      * Show the form for editing the specified NewsCategory.
      *
-     * @param int $id
+     * @param  int $id
      *
      * @return Response
      */
@@ -96,7 +93,7 @@ class NewsCategoryController extends AppBaseController
         $newsCategory = $this->newsCategoryRepository->find($id);
 
         if (empty($newsCategory)) {
-            Flash::error('News Category not found');
+            Flash::error('Kategori tidak ditemukan');
 
             return redirect(route('newsCategories.index'));
         }
@@ -107,7 +104,7 @@ class NewsCategoryController extends AppBaseController
     /**
      * Update the specified NewsCategory in storage.
      *
-     * @param int $id
+     * @param  int              $id
      * @param UpdateNewsCategoryRequest $request
      *
      * @return Response
@@ -117,14 +114,14 @@ class NewsCategoryController extends AppBaseController
         $newsCategory = $this->newsCategoryRepository->find($id);
 
         if (empty($newsCategory)) {
-            Flash::error('News Category not found');
+            Flash::error('Kategori tidak ditemukan');
 
             return redirect(route('newsCategories.index'));
         }
 
         $newsCategory = $this->newsCategoryRepository->update($request->all(), $id);
 
-        Flash::success('News Category updated successfully.');
+        Flash::success('Kategori berhasil diupdate.');
 
         return redirect(route('newsCategories.index'));
     }
@@ -132,9 +129,7 @@ class NewsCategoryController extends AppBaseController
     /**
      * Remove the specified NewsCategory from storage.
      *
-     * @param int $id
-     *
-     * @throws \Exception
+     * @param  int $id
      *
      * @return Response
      */
@@ -143,14 +138,14 @@ class NewsCategoryController extends AppBaseController
         $newsCategory = $this->newsCategoryRepository->find($id);
 
         if (empty($newsCategory)) {
-            Flash::error('News Category not found');
+            Flash::error('Kategori tidak ditemukan');
 
             return redirect(route('newsCategories.index'));
         }
 
         $this->newsCategoryRepository->delete($id);
 
-        Flash::success('News Category deleted successfully.');
+        Flash::success('Kategori berhasil dihapus.');
 
         return redirect(route('newsCategories.index'));
     }
