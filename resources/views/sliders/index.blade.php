@@ -7,7 +7,9 @@
             {{ Breadcrumbs::render('slider') }}
         </div>
         <h1 class="pull-right">
+            @can('tambah-slider')
            <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('sliders.create') }}">Tambah Baru</a>
+            @endcan
         </h1>
     </section>
     <div class="content">
