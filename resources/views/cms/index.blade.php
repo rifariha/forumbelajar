@@ -2,9 +2,14 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Cms</h1>
+        <h1 class="pull-left">Cms</h1><br><br>
+        <div>
+            {{ Breadcrumbs::render('cms') }}
+        </div>
         <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('cms.create') }}">Add New</a>
+            @can('tambah-cms')
+           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('cms.create') }}">Tambah CMS</a>
+            @endcan
         </h1>
     </section>
     <div class="content">

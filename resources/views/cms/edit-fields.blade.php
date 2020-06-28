@@ -1,8 +1,18 @@
 <!-- Cms Name Field -->
+@role('Superadmin')
 <div class="form-group col-sm-12">
     {!! Form::label('cms_name', 'Nama CMS:', ['class' => 'required']) !!}
     {!! Form::text('cms_name', null, ['class' => 'form-control']) !!}
 </div>
+@endrole
+
+@role('Admin')
+<div class="form-group col-sm-12">
+    {!! Form::label('cms_name', 'Nama CMS:', ['class' => 'required']) !!}
+    {!! Form::text('cms_name', null, ['class' => 'form-control','readonly']) !!}
+</div>
+@endrole
+
 
 <!-- Content Field -->
 <div class="form-group col-sm-12 col-lg-12">

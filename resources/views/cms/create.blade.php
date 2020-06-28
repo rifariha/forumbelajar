@@ -3,10 +3,13 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Cms
+            Tambah Cms
         </h1>
     </section>
     <div class="content">
+        <div>
+            {{ Breadcrumbs::render('cms') }}
+        </div>
         @include('adminlte-templates::common.errors')
         <div class="box box-primary">
             <div class="box-body">

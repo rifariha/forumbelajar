@@ -63,7 +63,7 @@ class GalleryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            ['data' => 'image', 'title' => 'Gambar'],
+            ['data' => 'image', 'title' => 'Gambar', 'searchable' => false],
             ['data'=>'short_description','title' => 'Judul'],
             ['data' => 'description', 'title' => 'Deskripsi'],
         ];

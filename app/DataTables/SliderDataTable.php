@@ -64,7 +64,7 @@ class SliderDataTable extends DataTable
     {
         return [
             ['data' => 'image', 'title' => 'Foto'],
-            ['data' => 'slider_name', 'title' => 'Judul Slider'],
+            ['data' => 'slider_name', 'title' => 'Judul Slider', 'searchable' => false],
             ['data' => 'desription', 'title' => 'Deskripsi']
         ];
     }

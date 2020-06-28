@@ -58,7 +58,7 @@ class SliderController extends AppBaseController
             $file = $request->image;
             $ext = $file->getClientOriginalExtension();
 
-            $path = $request->file('image')->storeAs('gallery', Str::slug($request->slider_name) . '.' . $ext);
+            $path = $request->file('image')->storeAs('slider', Str::slug($request->slider_name) . '.' . $ext);
             $input['image'] = $path;
         }
 
@@ -132,7 +132,7 @@ class SliderController extends AppBaseController
             $file = $request->image;
             $ext = $file->getClientOriginalExtension();
 
-            $path = $request->file('image')->storeAs('gallery', Str::slug($request->slider_name) . '.' . $ext);
+            $path = $request->file('image')->storeAs('slider', Str::slug($request->slider_name) . '.' . $ext);
             $input['image'] = $path;
         }
 

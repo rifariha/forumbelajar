@@ -23,6 +23,12 @@ Breadcrumbs::register('slider', function ($breadcrumbs) {
     $breadcrumbs->push('Slider', route('sliders.index'));
 });
 
+// Home > Cms
+Breadcrumbs::register('cms', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('CMS', route('cms.index'));
+});
+
 // Home > Bab
 Breadcrumbs::register('bab', function ($breadcrumbs) {
     $breadcrumbs->parent('home');

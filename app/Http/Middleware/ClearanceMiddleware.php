@@ -151,6 +151,30 @@ class ClearanceMiddleware
             }
         }
 
+        if ($request->is('cms/create')) {
+            if (!Auth::user()->hasPermissionTo('tambah-cms')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->is('cms/*/edit')) {
+            if (!Auth::user()->hasPermissionTo('edit-cms')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->isMethod('Delete')) {
+            if (!Auth::user()->hasPermissionTo('hapus-cms')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
 
         return $next($request);
     }

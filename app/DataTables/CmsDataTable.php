@@ -20,9 +20,6 @@ class CmsDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         $dataTable->addColumn('action', 'cms.datatables_actions');
-        $dataTable->editColumn('content', function($data) {
-            return ($data->content == 1) ? 'active': 'inactive'; 
-        });
         return $dataTable;
     }
 
@@ -82,8 +79,9 @@ class CmsDataTable extends DataTable
     {
         $data = [
             ['data' => 'number', 'title' => 'No','searchable' => false],
-            'cms_name',
-            ['data' => 'content', 'title' => 'isi data content'],
+            ['data' => 'cms_name', 'title' => 'Nama Cms'],
+            
+            ['data' => 'content', 'title' => 'Isi Content'],
         ];
         return $data;
     }
