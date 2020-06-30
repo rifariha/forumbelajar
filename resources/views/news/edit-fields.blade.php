@@ -10,18 +10,19 @@
     {!! Form::textarea('content', null, ['class' => 'form-control ckeditor']) !!}
 </div>
 
+<!-- Category Id Field -->
+<div class="form-group col-sm-3">
+    {!! Form::label('category_id', 'Kategori:', ['class' => 'required']) !!}
+    {!! Form::select('category_id', $category , null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Image Field -->
 <div class="form-group col-sm-12">
     {!! Form::label('image', 'Gambar:', ['class' => 'required']) !!}
     {!! Form::file('image', null, ['class' => 'form-control']) !!}
     <i class="red"> Maksimal 1 Mb </i>
     <br>
-</div>
-
-<!-- Category Id Field -->
-<div class="form-group col-sm-3">
-    {!! Form::label('category_id', 'Kategori:', ['class' => 'required']) !!}
-    {!! Form::select('category_id', $category , null, ['class' => 'form-control']) !!}
+    <img src="{{ url('storage/'.$news->image) }}">
 </div>
 
 <!-- Submit Field -->

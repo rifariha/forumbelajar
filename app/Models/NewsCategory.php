@@ -45,5 +45,9 @@ class NewsCategory extends Model
         'category_name' => 'required'
     ];
 
+    public function news()
+    {
+        return $this->belongsTo(News::class, 'category_id', 'id');
+    }
     
 }

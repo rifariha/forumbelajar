@@ -7,7 +7,7 @@ use Eloquent as Model;
 /**
  * Class News
  * @package App\Models
- * @version June 23, 2020, 11:48 am UTC
+ * @version June 29, 2020, 4:29 am UTC
  *
  * @property string $headline
  * @property string $created_by
@@ -22,10 +22,6 @@ class News extends Model
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-
-
-    protected $dates = ['deleted_at'];
-
 
 
     public $fillable = [
@@ -57,10 +53,21 @@ class News extends Model
      */
     public static $rules = [
         'headline' => 'required',
-        'created_by' => 'required',
         'content' => 'required',
-        'category_id' => 'required'
+        'category_id' => 'required',
+        'image' => 'required|mimes:jpg,jpeg,png|max:1500',
     ];
 
+    public static $editrules = [
+        'headline' => 'required',
+        'content' => 'required',
+        'category_id' => 'required',
+        'image' => 'mimes:jpg,jpeg,png|max:1500',
+    ];
+
+    public function category()
+    {
+        return $this->hasOne(NewsCategory::class, 'id', 'category_id');
+    }
     
 }

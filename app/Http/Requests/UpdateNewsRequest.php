@@ -25,7 +25,7 @@ class UpdateNewsRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = News::$rules;
+        $rules = News::$editrules;
         
         return $rules;
     }

@@ -29,7 +29,7 @@ Breadcrumbs::register('cms', function ($breadcrumbs) {
     $breadcrumbs->push('CMS', route('cms.index'));
 });
 
-// Home > Cms
+// Home > Berita
 Breadcrumbs::register('berita', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('Berita', route('news.index'));
