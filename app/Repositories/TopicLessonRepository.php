@@ -38,4 +38,10 @@ class TopicLessonRepository extends BaseRepository
     {
         return TopicLesson::class;
     }
+
+    public function findWhere($data)
+    {
+        $search = TopicLesson::where($data)->get();
+        return $search;
+    }
 }

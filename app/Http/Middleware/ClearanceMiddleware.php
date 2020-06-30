@@ -71,6 +71,30 @@ class ClearanceMiddleware
                 return $next($request);
             }
         }
+
+        if ($request->is('chapters/*/topics/*/lesson/create')) {
+            if (!Auth::user()->hasPermissionTo('tambah-materi')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->is('chapters/*/topics/*/lesson/*/edit')) {
+            if (!Auth::user()->hasPermissionTo('edit-materi')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->isMethod('chapters/*/topics/*/lesson/*/Delete')) {
+            if (!Auth::user()->hasPermissionTo('hapus-materi')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
         
 
         if ($request->is('users/create')) 

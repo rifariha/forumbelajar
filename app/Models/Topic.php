@@ -62,4 +62,9 @@ class Topic extends Model
         'topic_name' => 'required',
         'short_description' => 'required',
     ];
+
+    public function chapter()
+    {
+        return $this->belongsTo(Chapter::class, 'chapter_id', 'id');
+    }
 }

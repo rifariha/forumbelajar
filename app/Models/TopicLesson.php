@@ -47,7 +47,6 @@ class TopicLesson extends Model
      * @var array
      */
     public static $rules = [
-        'topic_id' => 'required',
         'lesson' => 'required'
     ];
 

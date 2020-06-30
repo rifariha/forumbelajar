@@ -6,6 +6,8 @@ use App\Http\Requests\CreateTopicLessonRequest;
 use App\Http\Requests\UpdateTopicLessonRequest;
 use App\Repositories\TopicLessonRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Chapter;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -29,10 +31,11 @@ class TopicLessonController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $topicLessons = $this->topicLessonRepository->all();
+        $topicId = request()->segment(4);
+        $topic = Topic::where('id',$topicId)->with('chapter')->first();
+        $topicLessons = $this->topicLessonRepository->findWhere(['topic_id' => $topicId]);
 
-        return view('topic_lessons.index')
-            ->with('topicLessons', $topicLessons);
+        return view('chapters.topics.topic_lessons.index', compact('topic','topicLessons'));
     }
 
     /**
@@ -42,7 +45,9 @@ class TopicLessonController extends AppBaseController
      */
     public function create()
     {
-        return view('topic_lessons.create');
+        $topicId = request()->segment(4);
+        $topic = Topic::where('id', $topicId)->with('chapter')->first();
+        return view('chapters.topics.topic_lessons.create', compact('topic'));
     }
 
     /**
@@ -55,12 +60,14 @@ class TopicLessonController extends AppBaseController
     public function store(CreateTopicLessonRequest $request)
     {
         $input = $request->all();
-
+        $chapterId = request()->segment(2);
+        $topicId = request()->segment(4);
+        $input['topic_id'] = $topicId;
         $topicLesson = $this->topicLessonRepository->create($input);
 
-        Flash::success('Topic Lesson saved successfully.');
+        Flash::success('Materi Pelajaran Berhasil ditambah.');
 
-        return redirect(route('topicLessons.index'));
+        return redirect(route('topics.show',[$chapterId,$topicId]));
     }
 
     /**
@@ -75,9 +82,9 @@ class TopicLessonController extends AppBaseController
         $topicLesson = $this->topicLessonRepository->find($id);
 
         if (empty($topicLesson)) {
-            Flash::error('Topic Lesson not found');
+            Flash::error('Materi Pelajaran tidak ditemukan');
 
-            return redirect(route('topicLessons.index'));
+            return redirect(route('topics.show'));
         }
 
         return view('topic_lessons.show')->with('topicLesson', $topicLesson);
@@ -90,17 +97,19 @@ class TopicLessonController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit($chapter_id,$topic_id,$id)
     {
         $topicLesson = $this->topicLessonRepository->find($id);
 
-        if (empty($topicLesson)) {
-            Flash::error('Topic Lesson not found');
+        $topic = Topic::where('id', $topic_id)->with('chapter')->first();
 
-            return redirect(route('topicLessons.index'));
+        if (empty($topicLesson)) {
+            Flash::error('Materi Pelajaran tidak ditemukan');
+
+            return redirect(route('topics.show'));
         }
 
-        return view('topic_lessons.edit')->with('topicLesson', $topicLesson);
+        return view('chapters.topics.topic_lessons.edit', compact('topicLesson', 'topic'));
     }
 
     /**
@@ -111,21 +120,22 @@ class TopicLessonController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateTopicLessonRequest $request)
+    public function update($chapterId, $topicId, $id, UpdateTopicLessonRequest $request)
     {
         $topicLesson = $this->topicLessonRepository->find($id);
 
+        $input = $request->all();
         if (empty($topicLesson)) {
-            Flash::error('Topic Lesson not found');
+            Flash::error('Materi Pelajaran tidak ditemukan');
 
-            return redirect(route('topicLessons.index'));
+            return redirect(route('topics.show'));
         }
 
-        $topicLesson = $this->topicLessonRepository->update($request->all(), $id);
+        $topicLesson = $this->topicLessonRepository->update($input, $id);
 
-        Flash::success('Topic Lesson updated successfully.');
+        Flash::success('Materi Pelajaran berhasil diupdate.');
 
-        return redirect(route('topicLessons.index'));
+        return redirect(route('topics.show', [$chapterId, $topicId]));
     }
 
     /**
@@ -137,20 +147,20 @@ class TopicLessonController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($chapter_id, $topic_id, $id)
     {
         $topicLesson = $this->topicLessonRepository->find($id);
 
         if (empty($topicLesson)) {
-            Flash::error('Topic Lesson not found');
+            Flash::error('Materi Pelajaran tidak ditemukan');
 
-            return redirect(route('topicLessons.index'));
+            return redirect(route('topics.show'));
         }
 
         $this->topicLessonRepository->delete($id);
 
-        Flash::success('Topic Lesson deleted successfully.');
+        Flash::success('Materi Pelajaran berhasil dihapus.');
 
-        return redirect(route('topicLessons.index'));
+        return redirect(route('topics.show', [$chapter_id, $topic_id]));
     }
 }

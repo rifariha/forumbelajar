@@ -54,3 +54,9 @@ Breadcrumbs::register('materi', function ($breadcrumbs, $chapter) {
     $breadcrumbs->parent('bab');
     $breadcrumbs->push($chapter->chapter_name, route('chapters.show', $chapter->id));
 });
+
+// Home > Bab > [JudulBab] > Judul Materi
+Breadcrumbs::register('lesson', function ($breadcrumbs, $topic) {
+    $breadcrumbs->parent('materi', $topic->chapter);
+    $breadcrumbs->push($topic->topic_name, route('topics.show', [$topic->chapter->id, $topic->id]));
+});
