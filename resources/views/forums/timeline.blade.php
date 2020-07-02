@@ -3,7 +3,7 @@
     <!-- timeline time label -->
     <li class="time-label">
         <span class="bg-info">
-           Log Komentar
+           Log Aktivitas
         </span>
     </li>
     <!-- /.timeline-label -->
