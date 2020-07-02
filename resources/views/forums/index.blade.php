@@ -15,7 +15,7 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                    @include('forums.table')
+                    @include('forums.timeline')
                     <center>
                     {{ $forums->links() }}
                     </center>

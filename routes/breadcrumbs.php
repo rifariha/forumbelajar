@@ -29,7 +29,7 @@ Breadcrumbs::register('cms', function ($breadcrumbs) {
     $breadcrumbs->push('CMS', route('cms.index'));
 });
 
-// Home > Cms
+// Home > Forum
 Breadcrumbs::register('forum', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('Forum Diskusi', route('forums.index'));
@@ -41,6 +41,11 @@ Breadcrumbs::register('berita', function ($breadcrumbs) {
     $breadcrumbs->push('Berita', route('news.index'));
 });
 
+// Home > Pesan
+Breadcrumbs::register('pesan', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Kelola Pesan', route('messages.index'));
+});
 
 // Home > Berita > Kategori Berita
 Breadcrumbs::register('kategori_berita', function ($breadcrumbs) {

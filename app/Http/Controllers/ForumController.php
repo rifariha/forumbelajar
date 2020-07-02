@@ -35,26 +35,6 @@ class ForumController extends AppBaseController
             $q->with('chapter');
         }])->with('user')->orderBy('created_at', 'desc')->paginate(10);
         
-        // dd($forums->toArray());
-        // $forumsRes = [];
-        // foreach ($forums as $forum) 
-        // {
-        //     $created_at =  date_format($forum->created_at,'Y-m-d H:i:s');
-        //     $form = [
-        //         'id' => $forum->id,
-        //         'topic_id' => $forum->topic_id,
-        //         'parent_id' => $forum->parent_id,
-        //         'user_id' => $forum->user_id,
-        //         'comment' => $forum->comment,
-        //         'created_at' => $this->time_since(strtotime($created_at)),
-        //         'topic' => $forum->topic,
-        //         'user'=> $forum->user,
-        //     ];
-        //     array_push($forumsRes,$form);
-        // }
-        // $forums = $forums->toArray();
-        // $forums['data'] = $forumsRes;
-        
         return view('forums.index')
             ->with('forums', $forums);
     }

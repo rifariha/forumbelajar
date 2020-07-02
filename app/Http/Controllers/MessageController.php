@@ -6,9 +6,11 @@ use App\Http\Requests\CreateMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
 use App\Repositories\MessageRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use Auth;
 
 class MessageController extends AppBaseController
 {
@@ -29,10 +31,10 @@ class MessageController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $messages = $this->messageRepository->all();
+        // $messages = $this->messageRepository->all();
+        $messages = Message::where('user_id', Auth::user()->id)->orderBy('created_at','desc')->paginate(10);
 
-        return view('messages.index')
-            ->with('messages', $messages);
+        return view('messages.index',compact('messages'));
     }
 
     /**
@@ -80,6 +82,7 @@ class MessageController extends AppBaseController
             return redirect(route('messages.index'));
         }
 
+        Message::where('id',$id)->update(['status' => 1]);
         return view('messages.show')->with('message', $message);
     }
 

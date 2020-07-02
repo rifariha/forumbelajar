@@ -3,7 +3,12 @@
 </li>
 
 <li class="{{ Request::is('messages*') ? 'active' : '' }}">
-    <a href="{{ route('messages.index') }}"><i class="fa fa-envelope"></i><span>Kelola Pesan</span></a>
+    <a href="{{ route('messages.index') }}"><i class="fa fa-envelope"></i><span>Kelola Pesan <span class="pull-right-container">
+        @if($read != 0)
+              <span class="label label-danger pull-right"><?=$read?>
+            </span> 
+        @endif
+        </a>
 </li>
 
 <li class="{{ Request::is('forums*') ? 'active' : '' }}">
@@ -36,7 +41,6 @@
     <a href="{{ route('galleries.index') }}"><i class="fa fa-camera"></i><span>Dokumentasi</span></a>
 </li>
 
-
 <li class="{{ Request::is('sliders*') ? 'active' : '' }}">
     <a href="{{ route('sliders.index') }}"><i class="fa fa-sliders"></i><span>Slider</span></a>
 </li>
@@ -47,14 +51,6 @@
 
 
 @endrole
-
-{{-- <li class="{{ Request::is('topics*') ? 'active' : '' }}">
-    <a href="{{ route('topics.index') }}"><i class="fa fa-edit"></i><span>Topics</span></a>
-</li> --}}
-
-{{-- <li class="{{ Request::is('topicLessons*') ? 'active' : '' }}">
-    <a href="{{ route('topicLessons.index') }}"><i class="fa fa-edit"></i><span>Topic Lessons</span></a>
-</li> --}}
 
 @role('Superadmin')
 <li class="{{ Request::is('permissions*') ? 'active' : '' }}">

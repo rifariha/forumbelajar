@@ -10,8 +10,8 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
+                    <a href="{{ route('messages.index') }}" class="btn btn-default">Back</a><br>
                     @include('messages.show_fields')
-                    <a href="{{ route('messages.index') }}" class="btn btn-default">Back</a>
                 </div>
             </div>
         </div>
