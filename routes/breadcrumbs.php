@@ -29,6 +29,12 @@ Breadcrumbs::register('cms', function ($breadcrumbs) {
     $breadcrumbs->push('CMS', route('cms.index'));
 });
 
+// Home > Cms
+Breadcrumbs::register('forum', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Forum Diskusi', route('forums.index'));
+});
+
 // Home > Berita
 Breadcrumbs::register('berita', function ($breadcrumbs) {
     $breadcrumbs->parent('home');

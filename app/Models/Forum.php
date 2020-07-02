@@ -65,5 +65,10 @@ class Forum extends Model
     {
         return $this->hasMany(Forum::class,'parent_id','id')->with('user');
     }
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class, 'topic_id', 'id');
+    }
     
 }

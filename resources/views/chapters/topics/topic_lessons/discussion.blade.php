@@ -14,7 +14,7 @@
                 <a href="#"><?=ucwords($comment->user->name)?></a>
             </span>
         <span class="description">
-            <?=date('d F Y H:i:s', strtotime($comment->created_at));?>
+            {{ time_since($comment->created_at) }}
         </span>
         </div>
         @if(Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('Admin') || Auth::user()->id == $comment->user_id)
@@ -29,7 +29,7 @@
                         <a href="#"><?=ucwords($reply->user->name)?></a>
                     </span>
                 <span class="description">
-                    <?=date('d F Y H:i:s', strtotime($reply->created_at));?>
+                    {{ time_since($reply->created_at) }}
                 </span>
                 <p style="padding-top:5pt"><?=$reply->comment?></p>
                 @if(Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('Admin') || Auth::user()->id == $reply->user_id)

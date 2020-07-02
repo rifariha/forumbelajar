@@ -73,7 +73,7 @@ class ClearanceMiddleware
         }
 
         if ($request->is('chapters/*/topics/*/lesson/create')) {
-            if (!Auth::user()->hasPermissionTo('tambah-materi')) {
+            if (!Auth::user()->hasPermissionTo('tambah-pelajaran')) {
                 abort('401');
             } else {
                 return $next($request);
@@ -81,7 +81,7 @@ class ClearanceMiddleware
         }
 
         if ($request->is('chapters/*/topics/*/lesson/*/edit')) {
-            if (!Auth::user()->hasPermissionTo('edit-materi')) {
+            if (!Auth::user()->hasPermissionTo('edit-pelajaran')) {
                 abort('401');
             } else {
                 return $next($request);
@@ -89,7 +89,7 @@ class ClearanceMiddleware
         }
 
         if ($request->isMethod('chapters/*/topics/*/lesson/*/Delete')) {
-            if (!Auth::user()->hasPermissionTo('hapus-materi')) {
+            if (!Auth::user()->hasPermissionTo('hapus-pelajaran')) {
                 abort('401');
             } else {
                 return $next($request);
@@ -193,6 +193,54 @@ class ClearanceMiddleware
 
         if ($request->isMethod('Delete')) {
             if (!Auth::user()->hasPermissionTo('hapus-cms')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->is('news/create')) {
+            if (!Auth::user()->hasPermissionTo('tambah-berita')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->is('news/*/edit')) {
+            if (!Auth::user()->hasPermissionTo('edit-berita')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->isMethod('Delete')) {
+            if (!Auth::user()->hasPermissionTo('hapus-berita')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->is('newsCategories/create')) {
+            if (!Auth::user()->hasPermissionTo('tambah-kategori-berita')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->is('newsCategories/*/edit')) {
+            if (!Auth::user()->hasPermissionTo('edit-kategori-berita')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
+
+        if ($request->isMethod('Delete')) {
+            if (!Auth::user()->hasPermissionTo('hapus-kategori-berita')) {
                 abort('401');
             } else {
                 return $next($request);

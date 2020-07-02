@@ -7,7 +7,7 @@
 </li>
 
 <li class="{{ Request::is('forums*') ? 'active' : '' }}">
-    <a href="{{ route('forums.index') }}"><i class="fa fa-comments-o"></i><span>Forum</span></a>
+    <a href="{{ route('forums.index') }}"><i class="fa fa-comments-o"></i><span>Forum Diskusi</span></a>
 </li>
 
 @hasanyrole('Superadmin|Admin')

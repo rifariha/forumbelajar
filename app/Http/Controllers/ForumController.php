@@ -6,6 +6,7 @@ use App\Http\Requests\CreateForumRequest;
 use App\Http\Requests\UpdateForumRequest;
 use App\Repositories\ForumRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Forum;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -30,8 +31,30 @@ class ForumController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $forums = $this->forumRepository->all();
-
+        $forums = Forum::with(['topic' => function($q){
+            $q->with('chapter');
+        }])->with('user')->orderBy('created_at', 'desc')->paginate(10);
+        
+        // dd($forums->toArray());
+        // $forumsRes = [];
+        // foreach ($forums as $forum) 
+        // {
+        //     $created_at =  date_format($forum->created_at,'Y-m-d H:i:s');
+        //     $form = [
+        //         'id' => $forum->id,
+        //         'topic_id' => $forum->topic_id,
+        //         'parent_id' => $forum->parent_id,
+        //         'user_id' => $forum->user_id,
+        //         'comment' => $forum->comment,
+        //         'created_at' => $this->time_since(strtotime($created_at)),
+        //         'topic' => $forum->topic,
+        //         'user'=> $forum->user,
+        //     ];
+        //     array_push($forumsRes,$form);
+        // }
+        // $forums = $forums->toArray();
+        // $forums['data'] = $forumsRes;
+        
         return view('forums.index')
             ->with('forums', $forums);
     }
@@ -153,6 +176,7 @@ class ForumController extends AppBaseController
             return redirect()->back();
         }
 
+        Forum::where('parent_id',$id)->delete();
         $this->forumRepository->delete($id);
 
         Flash::success('Komentar berhasil dihapus.');
