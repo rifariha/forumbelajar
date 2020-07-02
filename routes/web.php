@@ -44,9 +44,18 @@ Route::prefix('chapters')->group(function () {
     Route::get('/{id}/topics/{topic_id}/lesson/{lesson_id}/edit', 'TopicLessonController@edit')->name('topicLessons.edit');
     Route::patch('/{id}/topics/{topic_id}/lesson/{lesson_id}/update', 'TopicLessonController@update')->name('topicLessons.update');
     Route::post('/{id}/topics/{topic_id}/lesson/{lesson_id}/delete', 'TopicLessonController@destroy')->name('topicLessons.destroy');
+
+    Route::post('/{id}/topics/{topic_id}/lesson/comment', 'ForumController@store')->name('forums.store');
+    Route::post('/{id}/topics/{topic_id}/lesson/comment/{comment_id}/delete', 'ForumController@destroy')->name('forums.destroy');
 }); 
     
     
+Route::prefix('forums')->group(function () {
+    Route::get('/', 'ForumController@index')->name('forums.index');
+    Route::get('/create', 'ForumController@create')->name('forums.create');
+    Route::get('/{id}/edit', 'ForumController@edit')->name('forums.edit');
+    Route::patch('/{id}/update', 'ForumController@update')->name('forums.update');
+}); 
 
 // Route::resource('topics', 'TopicController');
 
@@ -58,7 +67,7 @@ Route::resource('roles', 'RoleController');
 
 Route::resource('users', 'UserController');
 
-Route::resource('forums', 'ForumController');
+// Route::resource('forums', 'ForumController');
 
 Route::resource('galleries', 'GalleryController');
 

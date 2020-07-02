@@ -53,11 +53,17 @@ class Forum extends Model
      * @var array
      */
     public static $rules = [
-        'topic_id' => 'required',
-        'parent_id' => 'required',
-        'user_id' => 'required',
         'comment' => 'required'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id','id');
+    }
+
+    public function descendant()
+    {
+        return $this->hasMany(Forum::class,'parent_id','id')->with('user');
+    }
     
 }

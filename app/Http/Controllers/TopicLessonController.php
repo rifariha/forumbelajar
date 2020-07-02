@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateTopicLessonRequest;
 use App\Repositories\TopicLessonRepository;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Chapter;
+use App\Models\Forum;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,8 +35,8 @@ class TopicLessonController extends AppBaseController
         $topicId = request()->segment(4);
         $topic = Topic::where('id',$topicId)->with('chapter')->first();
         $topicLessons = $this->topicLessonRepository->findWhere(['topic_id' => $topicId]);
-
-        return view('chapters.topics.topic_lessons.index', compact('topic','topicLessons'));
+        $comments = Forum::with('user','descendant')->where('topic_id',$topicId)->whereNull('parent_id')->orderBy('created_at','desc')->paginate(3);
+        return view('chapters.topics.topic_lessons.index', compact('topic','topicLessons','comments'));
     }
 
     /**

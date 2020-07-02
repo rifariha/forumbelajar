@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use Auth;
 
 class ForumController extends AppBaseController
 {
@@ -54,13 +55,18 @@ class ForumController extends AppBaseController
      */
     public function store(CreateForumRequest $request)
     {
-        $input = $request->all();
+        $chapterId = request()->segment(2);
+        $topicId = request()->segment(4);
+        $input['comment'] = $request->comment;
+        $input['user_id'] = Auth::user()->id;
+        $input['topic_id'] = $topicId;
+        $input['parent_id'] = $request->parent_id;
 
         $forum = $this->forumRepository->create($input);
 
-        Flash::success('Forum saved successfully.');
+        Flash::success('Komentar berhasil ditambah.');
 
-        return redirect(route('forums.index'));
+        return redirect()->back();
     }
 
     /**
@@ -123,7 +129,7 @@ class ForumController extends AppBaseController
 
         $forum = $this->forumRepository->update($request->all(), $id);
 
-        Flash::success('Forum updated successfully.');
+        Flash::success('Komentar berhasil diupdate.');
 
         return redirect(route('forums.index'));
     }
@@ -137,20 +143,20 @@ class ForumController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($chapterId,$topicId,$id)
     {
         $forum = $this->forumRepository->find($id);
 
         if (empty($forum)) {
             Flash::error('Forum not found');
 
-            return redirect(route('forums.index'));
+            return redirect()->back();
         }
 
         $this->forumRepository->delete($id);
 
-        Flash::success('Forum deleted successfully.');
+        Flash::success('Komentar berhasil dihapus.');
 
-        return redirect(route('forums.index'));
+        return redirect()->back();
     }
 }
