@@ -26,7 +26,7 @@
 <!-- Image Field -->
 <div class="form-group col-md-6">
     {!! Form::label('image', 'Foto:') !!}<br>
-    <img src="{{ url('storage/'.'image/'.$user->image) }}" width="20%">
+    <img src="{{ url('storage/'.$user->image) }}" width="20%">
 </div>
 
 <!-- Address Field -->

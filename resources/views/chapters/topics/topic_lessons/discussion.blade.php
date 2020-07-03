@@ -9,7 +9,7 @@
     @foreach($comments as $comment)
     <div class="post clearfix">
         <div class="user-block">
-        <img class="img-circle img-bordered-sm" src="{{ url('storage/image/'.$comment->user->image) }}" alt="User Image">
+        <img class="img-circle img-bordered-sm" src="{{ url('storage/'.$comment->user->image) }}" alt="User Image">
             <span class="username">
                 <a href="#"><?=ucwords($comment->user->name)?></a>
             </span>
@@ -24,7 +24,7 @@
         <p> <?= $comment->comment ?></p>
         @foreach($comment->descendant as $reply)
         	<div class="user-block" style="margin-left: 4rem">
-                <img class="img-circle img-bordered-sm" src="{{ url('storage/image/'.$reply->user->image) }}" alt="User Image">
+                <img class="img-circle img-bordered-sm" src="{{ url('storage/'.$reply->user->image) }}" alt="User Image">
                     <span class="username">
                         <a href="#"><?=ucwords($reply->user->name)?></a>
                     </span>

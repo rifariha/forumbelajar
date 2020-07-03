@@ -53,7 +53,7 @@ class UserController extends AppBaseController
     public function store(CreateUserRequest $request)
     {
         $input = $request->all();
-        $input['image'] = 'default_avatar.png';
+        $input['image'] = 'avatar/default_avatar.png';
         $user = $this->userRepository->create($input);
 
         Flash::success('User saved successfully.');

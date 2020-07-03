@@ -11,6 +11,7 @@
         @can('tambah-pelajaran')
         <h1 class="pull-right">
            <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('topicLessons.create',[$topic->chapter->id,$topic->id]) }}">Tambah Baru</a>
+           <a class="btn btn-danger pull-right" style="margin-top: -10px;margin-bottom: 5px;margin-right:10px" href="{{ route('topicLessons.create',[$topic->chapter->id,$topic->id]) }}">Backup Diskusi</a>
         </h1>
         @endcan
         

@@ -81,4 +81,29 @@ class ProfileController extends Controller
 
         return redirect(route('profile.edit'));
     }
+
+    public function changePassword(Request $request)
+    {
+        $this->validate($request, [
+            'oldpassword' => 'required',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $userId = Auth::user()->id;
+        $userData = User::where(['id' => $userId])->first();
+
+        if (!Hash::check($request->oldpassword, $userData->password)) {
+            Flash::error('Password lama yang anda masukan salah');
+            return redirect()->back();
+        }  
+        $password = [
+            'password' => Hash::make($request->password)
+        ];
+
+        User::where('id', $userId)->update($password);
+
+        Flash::success('Password berhasil diubah.');
+
+        return redirect(route('profile.edit'));
+    }
 }

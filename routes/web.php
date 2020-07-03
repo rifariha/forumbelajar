@@ -67,6 +67,7 @@ Route::prefix('messages')->group(function () {
 Route::prefix('profile')->group(function () {
     Route::get('/', 'ProfileController@edit')->name('profile.edit');
     Route::patch('/update', 'ProfileController@update')->name('profile.update');
+    Route::patch('/change-password', 'ProfileController@changePassword')->name('profile.changepassword');
 });
 
 Route::resource('permissions', 'PermissionController');

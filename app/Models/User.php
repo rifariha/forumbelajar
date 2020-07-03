@@ -6,6 +6,7 @@ use Eloquent as Model;
 // use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Hash;
 
 /**
  * Class User
@@ -88,7 +89,7 @@ class User extends Authenticatable
      */
     public static $rules = [
         'name' => 'required',
-        'email' => 'required',
+        'email' => 'required|unique:users|',
         'username' => 'required|unique:users|min:6',
         'password' => 'required|confirmed|min:6',
         'status' => 'required',
@@ -112,8 +113,7 @@ class User extends Authenticatable
     
     public function setPasswordAttribute($password)
     {
-        $this->attributes['password'] = bcrypt($password);
+        $this->attributes['password'] = Hash::make($password);
     }
-
     
 }
