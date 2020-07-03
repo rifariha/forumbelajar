@@ -57,10 +57,7 @@ class Message extends Model
      */
     public static $rules = [
         'subject' => 'required',
-        'sender_name' => 'required',
         'message' => 'required',
-        'user_id' => 'required',
-        'status' => 'required'
     ];
 
     

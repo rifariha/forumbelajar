@@ -6,7 +6,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{ url('storage/'.'image/'.Auth::user()->image) }}" class="img-circle"
+                <img src="{{ url('storage/'.Auth::user()->image) }}" class="user-image"
                      alt="User Image"/>
             </div>
             <div class="pull-left info">
@@ -18,6 +18,7 @@
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
+            <br><br>
         </div>
 
        

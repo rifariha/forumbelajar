@@ -18,6 +18,7 @@ class NewsCategoryController extends AppBaseController
 
     public function __construct(NewsCategoryRepository $newsCategoryRepo)
     {
+        $this->middleware(['auth', 'isAdmin']);
         $this->newsCategoryRepository = $newsCategoryRepo;
     }
 

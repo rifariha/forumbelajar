@@ -7,11 +7,12 @@ use App\Http\Requests\UpdateMessageRequest;
 use App\Repositories\MessageRepository;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
 use Auth;
-
+use DB;
 class MessageController extends AppBaseController
 {
     /** @var  MessageRepository */
@@ -33,8 +34,9 @@ class MessageController extends AppBaseController
     {
         // $messages = $this->messageRepository->all();
         $messages = Message::where('user_id', Auth::user()->id)->orderBy('created_at','desc')->paginate(10);
-
-        return view('messages.index',compact('messages'));
+        $sents = Message::where('sender_id', Auth::user()->id)->groupBy('batch')->orderBy('created_at', 'desc')->paginate(10);
+       
+        return view('messages.index',compact('messages','sents'));
     }
 
     /**
@@ -56,11 +58,34 @@ class MessageController extends AppBaseController
      */
     public function store(CreateMessageRequest $request)
     {
-        $input = $request->all();
-
-        $message = $this->messageRepository->create($input);
-
-        Flash::success('Message saved successfully.');
+        $last_batch = Message::orderBy('id', 'desc')->pluck('batch')->first();
+        
+        $new_batch = (int)$last_batch + 1;
+        $users = User::where('status',1)->where('id','!=',1)->where('id','!=',2)->pluck('id');
+        $bulk = [];
+        foreach ($users as $user) 
+        {
+            $message = [
+                'subject' => $request->subject,
+                'sender_id' =>  Auth::user()->id,
+                'sender_name' =>  Auth::user()->name,
+                'message' => $request->message,
+                'user_id' => $user,
+                'status' => 0,
+                'batch' => $new_batch,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+            array_push($bulk,$message);
+        }
+        DB::beginTransaction();
+        try {
+            Message::insert($bulk);
+            DB::commit();
+            Flash::success('Message saved successfully.');
+        } catch (\Throwable $th) {
+            Flash::error($th);
+        }
 
         return redirect(route('messages.index'));
     }
@@ -74,16 +99,77 @@ class MessageController extends AppBaseController
      */
     public function show($id)
     {
-        $message = $this->messageRepository->find($id);
+        $message = Message::where("id",$id)->where('user_id', Auth::user()->id)->first();
 
         if (empty($message)) {
-            Flash::error('Message not found');
+            Flash::error('Pesan tidak ditemukan');
 
             return redirect(route('messages.index'));
         }
 
         Message::where('id',$id)->update(['status' => 1]);
         return view('messages.show')->with('message', $message);
+    }
+
+    /**
+     * Display the specified Message.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function sentItemDetail($id)
+    {
+        // $sent = $this->messageRepository->find($id);
+        $sent = Message::where(['batch' => $id])->first();
+
+        if (empty($sent)) {
+            Flash::error('Pesan tidak ditemukan');
+
+            return redirect(route('messages.index'));
+        }
+
+        return view('messages.sent-item-show')->with('sent', $sent);
+    }
+
+    public function resend($id)
+    {
+        //get old message data
+        $old = Message::where(['batch' => $id])->first();
+        
+        //get last batch
+        $last_batch = Message::orderBy('id', 'desc')->pluck('batch')->first();
+
+        //create new batch
+        $new_batch = (int) $last_batch + 1;
+        //get all users id
+        $users = User::where('status', 1)->where('id', '!=', 1)->where('id', '!=', 2)->pluck('id');
+        $bulk = [];
+        foreach ($users as $user) {
+            $message = [
+                'subject' => $old->subject,
+                'sender_id' =>  Auth::user()->id,
+                'sender_name' =>  Auth::user()->name,
+                'message' => $old->message,
+                'user_id' => $user,
+                'status' => 0,
+                'batch' => $new_batch,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+            array_push($bulk, $message);
+        }
+        DB::beginTransaction();
+        try {
+            Message::insert($bulk);
+            DB::commit();
+            Flash::success('Pesan berhasil terkirim.');
+        } catch (\Throwable $th) {
+            Flash::error($th);
+        }
+
+        return redirect(route('messages.index'));
+
     }
 
     /**
@@ -152,7 +238,7 @@ class MessageController extends AppBaseController
 
         $this->messageRepository->delete($id);
 
-        Flash::success('Message deleted successfully.');
+        Flash::success('Message berhasil dihapus.');
 
         return redirect(route('messages.index'));
     }

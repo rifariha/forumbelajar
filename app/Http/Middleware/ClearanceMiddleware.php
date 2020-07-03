@@ -247,6 +247,13 @@ class ClearanceMiddleware
             }
         }
 
+        if ($request->is('messages/create')) {
+            if (!Auth::user()->hasPermissionTo('kirim-pesan')) {
+                abort('401');
+            } else {
+                return $next($request);
+            }
+        }
 
         return $next($request);
     }

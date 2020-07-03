@@ -55,11 +55,19 @@ Route::prefix('forums')->group(function () {
     Route::get('/create', 'ForumController@create')->name('forums.create');
     Route::get('/{id}/edit', 'ForumController@edit')->name('forums.edit');
     Route::patch('/{id}/update', 'ForumController@update')->name('forums.update');
-}); 
+});
 
-// Route::resource('topics', 'TopicController');
+Route::resource('messages', 'MessageController');
 
-// Route::resource('topicLessons', 'TopicLessonController');
+Route::prefix('messages')->group(function () {
+    Route::get('/sent-items/{batch_id}/detail', 'MessageController@sentItemDetail')->name('sentitem.show');
+    Route::post('/sent-items/{batch_id}/detail', 'MessageController@resend')->name('messages.resend');
+});
+
+Route::prefix('profile')->group(function () {
+    Route::get('/', 'ProfileController@edit')->name('profile.edit');
+    Route::patch('/update', 'ProfileController@update')->name('profile.update');
+});
 
 Route::resource('permissions', 'PermissionController');
 
@@ -67,18 +75,13 @@ Route::resource('roles', 'RoleController');
 
 Route::resource('users', 'UserController');
 
-// Route::resource('forums', 'ForumController');
-
 Route::resource('galleries', 'GalleryController');
-
-Route::resource('messages', 'MessageController');
 
 Route::resource('news', 'NewsController');
 
 Route::resource('newsCategories', 'NewsCategoryController');
 
 Route::resource('sliders', 'SliderController');
-
 
 Route::resource('backupLogs', 'BackupLogController');
 

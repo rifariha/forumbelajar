@@ -9,7 +9,7 @@
         
               <!-- /.mailbox-controls -->
               <div class="mailbox-read-message">
-                {{ $message->message }}
+                <?= $message->message ?>
               </div>
               <!-- /.mailbox-read-message -->
             </div>
@@ -18,7 +18,17 @@
             <div class="box-footer">
               <div class="pull-right">
               </div>
-              <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</button>
+              {!! Form::open(['route' => ['messages.destroy', $message->id], 'method' => 'delete']) !!}
+
+              {!! Form::button('<i class="fa fa-trash-o"></i> Hapus', [
+                  'type' => 'submit',
+                  'class' => 'btn btn-danger',
+                  'onclick' => "return confirm('Anda yakin menghapus pesan ini ?')"
+              ]) !!}
+              
+          </div>
+
+
             </div>
             <!-- /.box-footer -->
           </div>

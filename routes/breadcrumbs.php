@@ -11,6 +11,13 @@ Breadcrumbs::register('users', function ($breadcrumbs) {
     $breadcrumbs->push('Users', route('users.index'));
 });
 
+// Home > Profiler
+Breadcrumbs::register('profile', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Profile', route('profile.edit'));
+});
+
+
 // Home > Dokumentasi
 Breadcrumbs::register('gallery', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
