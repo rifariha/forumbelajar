@@ -49,6 +49,9 @@
     <a href="{{ route('cms.index') }}"><i class="fa fa-gears"></i><span>Cms</span></a>
 </li>
 
+<li class="{{ Request::is('backupLogs*') ? 'active' : '' }}">
+    <a href="{{ route('backupLogs.index') }}"><i class="fa fa-database"></i><span>Log Backup</span></a>
+</li>
 
 @endrole
 
@@ -61,6 +64,3 @@
 </li>
 @endrole
 
-{{-- <li class="{{ Request::is('backupLogs*') ? 'active' : '' }}">
-    <a href="{{ route('backupLogs.index') }}"><i class="fa fa-edit"></i><span>Backup Logs</span></a>
-</li> --}}

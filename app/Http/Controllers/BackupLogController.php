@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateBackupLogRequest;
 use App\Repositories\BackupLogRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\BackupLog;
 use Response;
 
 class BackupLogController extends AppBaseController
@@ -147,5 +148,11 @@ class BackupLogController extends AppBaseController
         Flash::success('Backup Log deleted successfully.');
 
         return redirect(route('backupLogs.index'));
+    }
+
+    public function download($id)
+    {
+        $log = BackupLog::where(["id" => $id])->first();
+        
     }
 }

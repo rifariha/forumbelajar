@@ -17,8 +17,22 @@ class BackupLogDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
+        $dataTable->editColumn('topic_id', function ($data) {
+            return $data->topic->topic_name;
+        }); 
+        $dataTable->editColumn('folder', function($data)
+        {
+            $folder = 'discussion/backup/'.$data->folder;
+            $link = url('storage/'.$folder.'/'.$data->filename);
+            return "<a href=$link><button class='btn btn-md btn-success'> Download </button></a>";
+        });
+        $dataTable->editColumn('created_at', function ($data) {
+            $str = strtotime($data->created_at);
+            return date('d-m-Y H:i:s', $str);
+        });
 
-        return $dataTable->addColumn('action', 'backup_logs.datatables_actions');
+        $dataTable->rawColumns(['topic_id', 'created_at','folder'])->make(true);
+        return $dataTable;
     }
 
     /**
@@ -29,7 +43,8 @@ class BackupLogDataTable extends DataTable
      */
     public function query(BackupLog $model)
     {
-        return $model->newQuery();
+        $model = BackupLog::with('topic')->orderBy('id','desc');
+        return $model;
     }
 
     /**
@@ -42,18 +57,9 @@ class BackupLogDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
-                'dom'       => 'Bfrtip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
-                'buttons'   => [
-                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
-                ],
             ]);
     }
 
@@ -65,9 +71,10 @@ class BackupLogDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'topic_id',
-            'status',
-            'created_by'
+            ['data' => 'topic_id', 'title' => 'Materi Diskusi', 'searchable' => false],
+            ['data' => 'created_at', 'title' => 'Tanggal Backup'],
+            ['data' => 'created_by', 'title' => 'Dibackup Oleh'],
+            ['data' => 'folder', 'title' => 'Download File'],
         ];
     }
 

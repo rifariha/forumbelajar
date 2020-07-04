@@ -5,7 +5,7 @@
 @include('adminlte-templates::common.errors')
 <hr>
     <!-- Post -->
-    <?php if($comments->toArray() == []) { echo "Belum ada diskusi di materi pelajaran ini";}?>
+    <?php  $temp = $comments->toArray(); if(empty($temp['data'])) { echo "Belum ada diskusi di materi pelajaran ini";}?>
     @foreach($comments as $comment)
     <div class="post clearfix">
         <div class="user-block">
@@ -77,33 +77,3 @@
 
         {!! Form::close() !!}
     </div>
-
-    	<!-- Jquery Core Js -->
-    <script src="js/jquery.min.js"></script>
-
-	
-	<script>
-	$(document).ready(function(e){
-		$showPostFrom = 0;
-		$showPostCount = 3;
-		$(document).on('click','.show-more',function(){
-			$showPostFrom += $showPostCount;
-			$('.load-post').html('<i class="fa fa-circle-o-notch fa-spin fa-fw"></i>Loading...');
-			$.ajax({
-				type:'POST',
-				url:'ajax_more.php',
-				data:{ 'action':'showPost', 'showPostFrom':$showPostFrom, 'showPostCount':$showPostCount },
-				success:function(data){
-					if(data != ''){
-						$('.load-post').html('Show More');
-						$('.post-data-list').append(data);
-					}else{
-						$('.show-more').hide();
-					}
-				}
-			});
-			
-		});
-
-	});
-	</script>

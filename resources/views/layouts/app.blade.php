@@ -23,6 +23,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.1/daterangepicker.min.css">
     <link rel="shortcut icon" href="{{ url('storage/logo/madrasah.png') }}">
     <style>
     .required:after {
@@ -36,6 +37,11 @@
         background-color:white;
         font-weight: bold;
         /* border-radius: 15px; */
+    }
+    @media only screen and (max-width: 600px) {
+    .range_inputs { font-size: 0px; }
+    .range_inputs * { display: none; }
+    .ranges li:last-child { display: none; }
     }
     </style>
     @yield('css')
@@ -168,6 +174,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.1/daterangepicker.min.js"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/js/adminlte.min.js"></script>
@@ -175,6 +182,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
 
+     <script>
+  $(function () {
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Hari ini'       : [moment(), moment()],
+          'Kemarin'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          '7 Hari terahir' : [moment().subtract(6, 'days'), moment()],
+          '30 Hari terakhir': [moment().subtract(29, 'days'), moment()],
+          'Bulan ini'  : [moment().startOf('month'), moment().endOf('month')],
+          'Bulan lalu'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+      }
+    )
+      })
+    </script>
     @stack('scripts')
 </body>
 </html>

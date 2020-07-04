@@ -55,6 +55,7 @@ Route::prefix('forums')->group(function () {
     Route::get('/create', 'ForumController@create')->name('forums.create');
     Route::get('/{id}/edit', 'ForumController@edit')->name('forums.edit');
     Route::patch('/{id}/update', 'ForumController@update')->name('forums.update');
+    Route::post('/backup', 'ForumController@backupDiscussion')->name('forums.backup');
 });
 
 Route::resource('messages', 'MessageController');
@@ -85,6 +86,8 @@ Route::resource('newsCategories', 'NewsCategoryController');
 Route::resource('sliders', 'SliderController');
 
 Route::resource('backupLogs', 'BackupLogController');
+
+Route::get('backupLogs/download', 'BackupLogController@download')->name('backup.download');
 
 Route::resource('cms', 'CmsController');
 

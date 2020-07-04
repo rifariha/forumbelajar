@@ -6,12 +6,17 @@ use App\Http\Requests\CreateForumRequest;
 use App\Http\Requests\UpdateForumRequest;
 use App\Repositories\ForumRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\BackupLog;
+use App\Models\Chapter;
 use App\Models\Forum;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
 use Auth;
-
+use PDF;
+use Storage;
+use Illuminate\Support\Str;
 class ForumController extends AppBaseController
 {
     /** @var  ForumRepository */
@@ -162,5 +167,45 @@ class ForumController extends AppBaseController
         Flash::success('Komentar berhasil dihapus.');
 
         return redirect()->back();
+    }
+
+    public function backupDiscussion(Request $request)
+    {
+        $this->validate($request, [
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
+
+        $start = $request->start_date.' 00:00:00';
+        $end = $request->end_date. ' 23:59:59';
+
+        $topicId = $request->topic_id;
+        $chapterId = request()->segment(2);
+        $topic = Topic::where('id',$topicId)->first();
+        $folder = Str::random(6);
+
+        $comments = Forum::with('user', 'descendant')->whereBetween('created_at', [$start, $end])->where(['topic_id' => $topicId])->get();
+        $pdf = PDF::loadview('chapters.topics.topic_lessons.discussion_backup',['comments' => $comments])->setPaper('a4')->setWarnings(false);
+        $filename = 'Backup-Diskusi-Materi-' . $topic->topic_name .'-Tanggal-' . $request->start_date . '-Sampai-' . $request->end_date . '.pdf';
+        
+        $content = $pdf->download()->getOriginalContent();
+
+        Storage::put('discussion/backup/'.$folder.'/'.$filename, $content);
+        
+        $backup_log = [
+            'topic_id' => $topicId,
+            'status' => 1,
+            'created_by' => Auth::user()->name,
+            'folder' => $folder,
+            'filename' => $filename
+        ];
+
+        BackupLog::create($backup_log);
+        
+        Forum::whereBetween('created_at', [$start, $end])->where(['topic_id' => $topicId])->delete();
+
+        Flash::success('Diskusi berhasil di backup.');
+
+        return redirect(route('topics.show', [$chapterId, $topicId]));
     }
 }

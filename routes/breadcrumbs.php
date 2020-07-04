@@ -17,6 +17,11 @@ Breadcrumbs::register('profile', function ($breadcrumbs) {
     $breadcrumbs->push('Profile', route('profile.edit'));
 });
 
+// Home > Log Backup
+Breadcrumbs::register('log', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Log Backup', route('backupLogs.index'));
+});
 
 // Home > Dokumentasi
 Breadcrumbs::register('gallery', function ($breadcrumbs) {

@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Eloquent as Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 /**
  * Class BackupLog
  * @package App\Models
@@ -16,7 +14,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class BackupLog extends Model
 {
-    use SoftDeletes;
 
     public $table = 'backup_log';
     
@@ -26,12 +23,12 @@ class BackupLog extends Model
 
     protected $dates = ['deleted_at'];
 
-
-
     public $fillable = [
         'topic_id',
         'status',
-        'created_by'
+        'created_by',
+        'folder',
+        'filename',
     ];
 
     /**
@@ -57,5 +54,9 @@ class BackupLog extends Model
         'created_by' => 'required'
     ];
 
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class, 'topic_id','id');
+    }
     
 }
