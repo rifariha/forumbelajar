@@ -10,11 +10,12 @@
        <div>
             {{ Breadcrumbs::render('cms') }}
         </div>
+        @include('flash::message')
        @include('adminlte-templates::common.errors')
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($cms, ['route' => ['cms.update', $cms->id], 'method' => 'patch']) !!}
+                   {!! Form::model($cms, ['route' => ['cms.update', $cms->id], 'method' => 'patch','files' => true,'enctype'=>'multipart/form-data']) !!}
 
                         @include('cms.edit-fields')
 

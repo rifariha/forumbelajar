@@ -24,7 +24,94 @@
     <!-- style CSS -->
     <link rel="stylesheet" href="{{ asset('template/css/style.css') }}">
 </head>
+<?php
+    $image_url = url('storage/'.$cms["headline-image"]);
+?>
+<style>
 
+/* line 164, E:/172 Etrain Education/172_Etrain_Education_html/sass/_banner.scss */
+.banner_part:after {
+  position: absolute;
+  top: 163px;
+  width: 41%;
+  height: 69%;
+  content: "";
+  background-image: url("<?=$image_url?>");
+  background-size: 100% 100%;
+  right: 9%;
+}
+
+@media (max-width: 576px) {
+  /* line 164, E:/172 Etrain Education/172_Etrain_Education_html/sass/_banner.scss */
+  .banner_part:after {
+    position: absolute;
+    top: 150px;
+    max-width: 100%;
+    max-height: 100%;
+    content: "";
+    background-image: url("<?=$image_url?>");
+    background-size: contain;
+    right: 0;
+    left: 0;
+    text-align: center;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* line 164, E:/172 Etrain Education/172_Etrain_Education_html/sass/_banner.scss */
+  .banner_part:after {
+    position: absolute;
+    top: 110px;
+    max-width: 100%;
+    max-height: 100%;
+    content: "";
+    background-image: url("<?=$image_url?>");
+    background-size: contain;
+    right: 0;
+    left: 0;
+    text-align: center;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* line 164, E:/172 Etrain Education/172_Etrain_Education_html/sass/_banner.scss */
+  .banner_part:after {
+    position: absolute;
+    top: 110px;
+    max-width: 100%;
+    max-height: 100%;
+    content: "";
+    background-image: url("<?=$image_url?>");
+    background-size: contain;
+    right: 0;
+    left: 0;
+    text-align: center;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 164, E:/172 Etrain Education/172_Etrain_Education_html/sass/_banner.scss */
+  .banner_part:after {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    content: "";
+    background-image: url("<?=$image_url?>");
+    background-size: contain;
+    right: 5%;
+    bottom: 0;
+    top: auto;
+    background-repeat: no-repeat;
+  }
+}
+
+</style>
 <body>
     <!--::header part start::-->
     <header class="main_menu home_menu">
@@ -32,7 +119,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html"> <img src="{{ asset('template/img/logo.png') }}" alt="logo"> </a>
+                        <a class="navbar-brand" href="index.html"> <img src="{{ url('storage/'.$cms["logo-up-down"]) }}" alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -73,12 +160,9 @@
                 <div class="col-lg-6 col-xl-6">
                     <div class="banner_text">
                         <div class="banner_text_iner">
-                            <h5>Every child yearns to learn</h5>
-                            <h1>Making Your Childs
-                                World Better</h1>
-                            <p>Replenish seasons may male hath fruit beast were seas saw you arrie said man beast whales
-                                his void unto last session for bite. Set have great you'll male grass yielding yielding
-                                man</p>
+                            <h1><?=$cms['headline']?></h1>
+                            <p><?=$cms['headline-description']?></p>
+                                <br><br><br>
                         </div>
                     </div>
                 </div>
@@ -93,38 +177,31 @@
             <div class="row">
                 <div class="col-sm-6 col-xl-3 align-self-center">
                     <div class="single_feature_text ">
-                        <h2>Awesome <br> Feature</h2>
-                        <p>Set have great you male grass yielding an yielding first their you're
-                            have called the abundantly fruit were man </p>
+                        <h2><?=$cms['middle-title']?></h2>
+                        <p><?=$cms['middle-description']?></p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <div class="single_feature">
                         <div class="single_feature_part">
-                            <span class="single_feature_icon"><i class="ti-layers"></i></span>
-                            <h4>Better Future</h4>
-                            <p>Set have great you male grasses yielding yielding first their to
-                                called deep abundantly Set have great you male</p>
+                            <h4><?=$cms['middle-sub-title-one']?></h4>
+                            <p><?=$cms['middle-sub-title-one-description']?></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <div class="single_feature">
                         <div class="single_feature_part">
-                            <span class="single_feature_icon"><i class="ti-new-window"></i></span>
-                            <h4>Qualified Trainers</h4>
-                            <p>Set have great you male grasses yielding yielding first their to called
-                                deep abundantly Set have great you male</p>
+                            <h4><?=$cms['middle-sub-title-two']?></h4>
+                            <p><?=$cms['middle-sub-title-two-description']?></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <div class="single_feature">
                         <div class="single_feature_part single_feature_part_2">
-                            <span class="single_service_icon style_icon"><i class="ti-light-bulb"></i></span>
-                            <h4>Job Oppurtunity</h4>
-                            <p>Set have great you male grasses yielding yielding first their to called deep
-                                abundantly Set have great you male</p>
+                            <h4><?=$cms['middle-sub-title-three']?></h4>
+                            <p><?=$cms['middle-sub-title-three-description']?></p>
                         </div>
                     </div>
                 </div>
@@ -194,27 +271,144 @@
             </div>
         </div>
     </section>
-    <!--::blog_part end::-->
+    <!--::review_part start::-->
+    <section class="testimonial_part">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-xl-5">
+                    <div class="section_tittle text-center">
+                        <p>tesimonials</p>
+                        <h2>Happy Students</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="textimonial_iner owl-carousel">
+                        <div class="testimonial_slider">
+                            <div class="row">
+                                <div class="col-lg-8 col-xl-4 col-sm-8 align-self-center">
+                                    <div class="testimonial_slider_text">
+                                        <p>Behold place was a multiply creeping creature his domin to thiren open void
+                                            hath herb divided divide creepeth living shall i call beginning
+                                            third sea itself set</p>
+                                        <h4>Michel Hashale</h4>
+                                        <h5> Sr. Web designer</h5>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-xl-2 col-sm-4">
+                                    <div class="testimonial_slider_img">
+                                        <img src="img/testimonial_img_1.png" alt="#">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 d-none d-xl-block">
+                                    <div class="testimonial_slider_text">
+                                        <p>Behold place was a multiply creeping creature his domin to thiren open void
+                                            hath herb divided divide creepeth living shall i call beginning
+                                            third sea itself set</p>
+                                        <h4>Michel Hashale</h4>
+                                        <h5> Sr. Web designer</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 d-none d-xl-block">
+                                    <div class="testimonial_slider_img">
+                                        <img src="img/testimonial_img_1.png" alt="#">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial_slider">
+                            <div class="row">
+                                <div class="col-lg-8 col-xl-4 col-sm-8 align-self-center">
+                                    <div class="testimonial_slider_text">
+                                        <p>Behold place was a multiply creeping creature his domin to thiren open void
+                                            hath herb divided divide creepeth living shall i call beginning
+                                            third sea itself set</p>
+                                        <h4>Michel Hashale</h4>
+                                        <h5> Sr. Web designer</h5>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-xl-2 col-sm-4">
+                                    <div class="testimonial_slider_img">
+                                        <img src="img/testimonial_img_2.png" alt="#">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 d-none d-xl-block">
+                                    <div class="testimonial_slider_text">
+                                        <p>Behold place was a multiply creeping creature his domin to thiren open void
+                                            hath herb divided divide creepeth living shall i call beginning
+                                            third sea itself set</p>
+                                        <h4>Michel Hashale</h4>
+                                        <h5> Sr. Web designer</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 d-none d-xl-block">
+                                    <div class="testimonial_slider_img">
+                                        <img src="img/testimonial_img_1.png" alt="#">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial_slider">
+                            <div class="row">
+                                <div class="col-lg-8 col-xl-4 col-sm-8 align-self-center">
+                                    <div class="testimonial_slider_text">
+                                        <p>Behold place was a multiply creeping creature his domin to thiren open void
+                                            hath herb divided divide creepeth living shall i call beginning
+                                            third sea itself set</p>
+                                        <h4>Michel Hashale</h4>
+                                        <h5> Sr. Web designer</h5>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-xl-2 col-sm-4">
+                                    <div class="testimonial_slider_img">
+                                        <img src="img/testimonial_img_3.png" alt="#">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 d-none d-xl-block">
+                                    <div class="testimonial_slider_text">
+                                        <p>Behold place was a multiply creeping creature his domin to thiren open void
+                                            hath herb divided divide creepeth living shall i call beginning
+                                            third sea itself set</p>
+                                        <h4>Michel Hashale</h4>
+                                        <h5> Sr. Web designer</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 d-none d-xl-block">
+                                    <div class="testimonial_slider_img">
+                                        <img src="img/testimonial_img_1.png" alt="#">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+            </div>
+        </div>
+    </section>
+    
+    <!--::blog_part end::-->
+    <br>
+    <br>
+    <br>
     <!-- footer part start-->
     <footer class="footer-area">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-md-6">
                     <div class="single-footer-widget footer_1">
-                        <a href="index.html"> <img src="{{ asset('template/img/logo.png') }}" alt=""> </a>
-                        <p>But when shot real her. Chamber her one visite removal six
-                            sending himself boys scot exquisite existend an </p>
-                        <p>But when shot real her hamber her </p>
+                        <a href="index.html"> <img src="{{ url('storage/'.$cms["logo-up-down"]) }}"  alt=""> </a>
+                        <p><?=$cms['footer-description']?></p>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="single-footer-widget footer_2">
                         <h4>Kontak Kami</h4>
                         <div class="contact_info">
-                            <p><span> Address :</span> Hath of it fly signs bear be one blessed after </p>
-                            <p><span> Phone :</span> +2 36 265 (8060)</p>
-                            <p><span> Email : </span>info@colorlib.com </p>
+                            <p><span> Alamat :</span> <?=$cms['alamat']?> </p>
+                            <p><span> Telepon :</span> <?=$cms['telepon']?></p>
+                            <p><span> Email : </span><?=$cms['email']?> </p>
                         </div>
                     </div>
                 </div>

@@ -10,11 +10,12 @@
         <div>
             {{ Breadcrumbs::render('cms') }}
         </div>
+        @include('flash::message')
         @include('adminlte-templates::common.errors')
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'cms.store']) !!}
+                    {!! Form::open(['route' => 'cms.store','files' => true,'enctype'=>'multipart/form-data']) !!}
 
                         @include('cms.fields')
 

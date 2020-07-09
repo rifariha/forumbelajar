@@ -18,8 +18,18 @@ class CmsDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-
         $dataTable->addColumn('action', 'cms.datatables_actions');
+        $dataTable->editColumn('content', function($data)
+        {
+            if($data->type == 'file')
+            {
+                $url = asset('storage/' . $data->content);
+                return '<img src="' . $url . '" border="0" width="100" align="center" />';
+            }
+            else {
+                return $data->content;
+            }
+        })->rawColumns(['content', 'action'])->make(true);
         return $dataTable;
     }
 
@@ -36,10 +46,11 @@ class CmsDataTable extends DataTable
             DB::raw('@rownum := @rownum + 1 AS number'),
             'id',
             'cms_name',
+            'type',
             'content',
             'created_at',
             'updated_at'
-        ]);
+        ])->orderby('id','asc');
 
         return $model;
     }
@@ -54,20 +65,7 @@ class CmsDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
-            // ->parameters([
-            //     'dom'       => 'Bfrtip',
-            //     'stateSave' => true,
-            //     'order'     => [[0, 'desc']],
-            //     'buttons'   => [
-            //         ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-            //         ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-            //         ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-            //         ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-            //         ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
-            //     ],
-            // ])
-            ;
+            ->addAction(['width' => '120px']);
     }
 
     /**
@@ -78,9 +76,8 @@ class CmsDataTable extends DataTable
     protected function getColumns()
     {
         $data = [
-            ['data' => 'number', 'title' => 'No','searchable' => false],
-            ['data' => 'cms_name', 'title' => 'Nama Cms'],
-            
+            // ['data' => 'number', 'title' => 'No','searchable' => false],
+            ['data' => 'cms_name', 'title' => 'Nama Cms'],         
             ['data' => 'content', 'title' => 'Isi Content'],
         ];
         return $data;

@@ -10,6 +10,7 @@ use App\Repositories\CmsRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Illuminate\Support\Str;
 
 class CmsController extends AppBaseController
 {
@@ -53,6 +54,14 @@ class CmsController extends AppBaseController
     public function store(CreateCmsRequest $request)
     {
         $input = $request->all();
+
+        if ($request->hasFile('content')) {
+            $file = $request->content;
+            $ext = $file->getClientOriginalExtension();
+
+            $path = $request->file('content')->storeAs('homepage', Str::slug($request->cms_name) . '.' . $ext);
+            $input['content'] = $path;
+        }
 
         $cms = $this->cmsRepository->create($input);
 
@@ -113,13 +122,49 @@ class CmsController extends AppBaseController
     {
         $cms = $this->cmsRepository->find($id);
 
+        $input = $request->all();
         if (empty($cms)) {
             Flash::error('Cms not found');
 
             return redirect(route('cms.index'));
         }
 
-        $cms = $this->cmsRepository->update($request->all(), $id);
+        if ($request->hasFile('content')) {
+            $file = $request->content;
+            $ext = $file->getClientOriginalExtension();
+            $size = $file->getSize();
+            
+            if($size > 512000)
+            {
+                Flash::error('Ukuran Gambar maksimal 512 KB');
+                return redirect()->back();
+            }
+
+            if (strtolower($ext) != 'png') {
+                Flash::error('Format Gambar harus .png');
+                return redirect()->back();
+            }
+
+            if ($request->cms_name == 'gambar-headline') 
+            {
+                $height = 709;
+                $width = 854;
+
+                $data = getimagesize($file);
+                $widthImage = $data[0];
+                $heightImage = $data[1];
+
+                if($widthImage != $width OR $heightImage != $height)
+                {
+                    Flash::error('Dimensi gambar headline harus 854 x 709 px');
+                    return redirect()->back();
+                }
+            }
+            
+            $path = $request->file('content')->storeAs('homepage', Str::slug($request->cms_name) . '.' . $ext);
+            $input['content'] = $path;
+        }
+        $cms = $this->cmsRepository->update($input, $id);
 
         Flash::success('Cms berhasil diupdate.');
 
