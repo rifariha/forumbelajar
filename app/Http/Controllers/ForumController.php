@@ -185,7 +185,7 @@ class ForumController extends AppBaseController
         $folder = Str::random(6);
 
         $comments = Forum::with('user', 'descendant')->whereBetween('created_at', [$start, $end])->where(['topic_id' => $topicId])->get();
-        $pdf = PDF::loadview('chapters.topics.topic_lessons.discussion_backup',['comments' => $comments])->setPaper('a4')->setWarnings(false);
+        $pdf = PDF::loadview('chapters.topics.topic_lessons.discussion_backup',['comments' => $comments, 'topic' => $topic])->setPaper('a4')->setWarnings(false);
         $filename = 'Backup-Diskusi-Materi-' . $topic->topic_name .'-Tanggal-' . $request->start_date . '-Sampai-' . $request->end_date . '.pdf';
         
         $content = $pdf->download()->getOriginalContent();

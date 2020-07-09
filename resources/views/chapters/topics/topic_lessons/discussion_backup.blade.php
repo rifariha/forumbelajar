@@ -1,4 +1,4 @@
-<h2> Backup Diskusi </h2>
+<h2> Backup Diskusi Materi <?=$topic->topic_name?></h2>
 
 <div class="col-md-12">
 <hr>

@@ -121,7 +121,7 @@ class CmsController extends AppBaseController
 
         $cms = $this->cmsRepository->update($request->all(), $id);
 
-        Flash::success('Cms updated successfully.');
+        Flash::success('Cms berhasil diupdate.');
 
         return redirect(route('cms.index'));
     }
@@ -145,7 +145,7 @@ class CmsController extends AppBaseController
 
         $this->cmsRepository->delete($id);
 
-        Flash::success('Cms deleted successfully.');
+        Flash::success('Cms berhasil dihapus.');
 
         return redirect(route('cms.index'));
     }

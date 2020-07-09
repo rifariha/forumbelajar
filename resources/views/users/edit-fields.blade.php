@@ -42,7 +42,7 @@
 <!-- Status Field -->
 <div class="form-group col-sm-3">
     {!! Form::label('status', 'Status Akun:', ['class' => 'required']) !!}
-    {!! Form::select('status', ['0' => 'Tidak aktif', '1' => 'Aktif'], '1', ['class' => 'form-control']) !!}
+    {!! Form::select('status', ['0' => 'Tidak aktif', '1' => 'Aktif'], null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Bmkz Origin Field -->

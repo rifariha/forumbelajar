@@ -25,6 +25,7 @@ class Cms extends Model
 
     public $fillable = [
         'cms_name',
+        'type',
         'content'
     ];
 

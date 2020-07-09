@@ -9,8 +9,10 @@
             {{ Breadcrumbs::render('materi',$chapter) }}
         </div>
         <h1 class="pull-right">
+            @can('tambah-materi')
             <?php $chapter_id = request()->segment(2); ?>
            <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('topics.create',[$chapter_id]) }}">Tambah Materi Bab</a>
+            @endcan
         </h1>
     </section>
     <div class="content">

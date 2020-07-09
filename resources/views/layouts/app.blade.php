@@ -181,7 +181,26 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
-
+<script>  
+$(document).ready(function(){
+    $('#select-type').on('change', function() {
+      if ( this.value == 'text')
+      {
+        $("#inputtext").show();
+        $("#inputfile").hide();
+        $("#value").val('');
+        $("#value2").val("");
+      }
+      else if ( this.value == 'file')
+      {
+        $("#inputtext").hide();
+        $("#inputfile").show();
+        $("#value").val('');
+        $("#value2").val("");
+      }
+    });
+});
+</script>
      <script>
   $(function () {
     $('#daterange-btn').daterangepicker(
