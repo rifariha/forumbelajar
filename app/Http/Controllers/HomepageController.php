@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cms;
+use App\Models\Gallery;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\Slider;
@@ -70,6 +71,17 @@ class HomepageController extends Controller
 
     public function documentation()
     {
-
+        $getCms = Cms::all();
+        $cmsArr = [];
+        foreach ($getCms->toArray() as $key => $cms) {
+            $data = [
+                $cms['cms_name'] => $cms['content'],
+            ];
+            $cmsArr = array_merge($cmsArr, $data);
+        }
+        $cms = $cmsArr;
+        
+        $gallery = Gallery::all();
+        return view('documentation', compact('cms', 'gallery'));
     }
 }

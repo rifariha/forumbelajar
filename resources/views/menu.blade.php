@@ -25,7 +25,7 @@
                                 <a class="nav-link" href="{{ route('homepage.berita')}}">Berita</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="cource.html">Dokumentasi</a>
+                                <a class="nav-link" href="{{ route('homepage.documentation')}}">Dokumentasi</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#kontak-kami">Kontak Kami</a>
