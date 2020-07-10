@@ -1,10 +1,10 @@
-{!! Form::open(['route' => ['sliders.destroy', $id], 'method' => 'delete']) !!}
+{!! Form::open(['route' => ['testimonials.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    <a href="{{ route('sliders.show', $id) }}" class='btn btn-default btn-sm'>
+    <a href="{{ route('testimonials.show', $id) }}" class='btn btn-default btn-sm'>
         <i class="glyphicon glyphicon-eye-open"></i>
     </a>
     @can('edit-slider')
-    <a href="{{ route('sliders.edit', $id) }}" class='btn btn-default btn-sm'>
+    <a href="{{ route('testimonials.edit', $id) }}" class='btn btn-default btn-sm'>
         <i class="glyphicon glyphicon-edit"></i>
     </a>
     @endcan

@@ -3,20 +3,20 @@
 @section('content')
     <section class="content-header">
         <h1>
-           Edit Slider
+           Edit Testimonial
         </h1>
    </section>
    <div class="content">
         <div>
-            {{ Breadcrumbs::render('slider') }}
+            {{ Breadcrumbs::render('testimonial') }}
         </div>
        @include('adminlte-templates::common.errors')
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($slider, ['route' => ['sliders.update', $slider->id], 'method' => 'patch','files' => true,'enctype'=>'multipart/form-data']) !!}
+                   {!! Form::model($slider, ['route' => ['testimonials.update', $slider->id], 'method' => 'patch','files' => true,'enctype'=>'multipart/form-data']) !!}
 
-                        @include('sliders.edit-fields')
+                        @include('testimonials.edit-fields')
 
                    {!! Form::close() !!}
                </div>

@@ -29,6 +29,8 @@ class News extends Model
         'created_by',
         'content',
         'image',
+        'slug',
+        'thumbnail',
         'category_id'
     ];
 

@@ -22,7 +22,7 @@ class SliderDataTable extends DataTable
             return '<img src="' . $url . '" border="0" width="100" align="center" />';
         })->rawColumns(['image', 'action'])->make(true);
         
-        return $dataTable->addColumn('action', 'sliders.datatables_actions');
+        return $dataTable->addColumn('action', 'testimonials.datatables_actions');
     }
 
     /**
@@ -64,7 +64,7 @@ class SliderDataTable extends DataTable
     {
         return [
             ['data' => 'image', 'title' => 'Foto'],
-            ['data' => 'slider_name', 'title' => 'Judul Slider', 'searchable' => false],
+            ['data' => 'slider_name', 'title' => 'Nama Testi', 'searchable' => false],
             ['data' => 'desription', 'title' => 'Deskripsi']
         ];
     }

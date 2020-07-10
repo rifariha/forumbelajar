@@ -41,8 +41,8 @@
     <a href="{{ route('galleries.index') }}"><i class="fa fa-camera"></i><span>Dokumentasi</span></a>
 </li>
 
-<li class="{{ Request::is('sliders*') ? 'active' : '' }}">
-    <a href="{{ route('sliders.index') }}"><i class="fa fa-sliders"></i><span>Slider</span></a>
+<li class="{{ Request::is('testimonials*') ? 'active' : '' }}">
+    <a href="{{ route('testimonials.index') }}"><i class="fa fa-sliders"></i><span>Testimonials</span></a>
 </li>
 
 <li class="{{ Request::is('cms*') ? 'active' : '' }}">

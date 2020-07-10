@@ -46,7 +46,7 @@ class NewsDataTable extends DataTable
     {
         $model = News::select([
             'news.*'
-        ])->with('category');
+        ])->with('category')->orderBy('created_at','desc');
         return $model;
     }
 

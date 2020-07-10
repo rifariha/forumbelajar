@@ -30,9 +30,9 @@ Breadcrumbs::register('gallery', function ($breadcrumbs) {
 });
 
 // Home > Slider
-Breadcrumbs::register('slider', function ($breadcrumbs) {
+Breadcrumbs::register('testimonial', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
-    $breadcrumbs->push('Slider', route('sliders.index'));
+    $breadcrumbs->push('testimonial', route('testimonials.index'));
 });
 
 // Home > Cms

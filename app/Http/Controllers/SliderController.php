@@ -30,7 +30,7 @@ class SliderController extends AppBaseController
      */
     public function index(SliderDataTable $sliderDataTable)
     {
-        return $sliderDataTable->render('sliders.index');
+        return $sliderDataTable->render('testimonials.index');
     }
 
     /**
@@ -40,7 +40,7 @@ class SliderController extends AppBaseController
      */
     public function create()
     {
-        return view('sliders.create');
+        return view('testimonials.create');
     }
 
     /**
@@ -64,9 +64,9 @@ class SliderController extends AppBaseController
 
         $slider = $this->sliderRepository->create($input);
 
-        Flash::success('Slider berhasil dibuat.');
+        Flash::success('Testimoni berhasil ditambah.');
 
-        return redirect(route('sliders.index'));
+        return redirect(route('testimonials.index'));
     }
 
     /**
@@ -81,12 +81,12 @@ class SliderController extends AppBaseController
         $slider = $this->sliderRepository->find($id);
 
         if (empty($slider)) {
-            Flash::error('Slider tidak ditemukan');
+            Flash::error('Tesimoni tidak ditemukan');
 
-            return redirect(route('sliders.index'));
+            return redirect(route('testimonials.index'));
         }
 
-        return view('sliders.show')->with('slider', $slider);
+        return view('testimonials.show')->with('slider', $slider);
     }
 
     /**
@@ -101,12 +101,12 @@ class SliderController extends AppBaseController
         $slider = $this->sliderRepository->find($id);
 
         if (empty($slider)) {
-            Flash::error('Slider tidak ditemukan');
+            Flash::error('Tesimoni tidak ditemukan');
 
-            return redirect(route('sliders.index'));
+            return redirect(route('testimonials.index'));
         }
 
-        return view('sliders.edit')->with('slider', $slider);
+        return view('testimonials.edit')->with('slider', $slider);
     }
 
     /**
@@ -123,9 +123,9 @@ class SliderController extends AppBaseController
         $input = $request->all();
 
         if (empty($slider)) {
-            Flash::error('Slider tidak ditemukan');
+            Flash::error('Tesimoni tidak ditemukan');
 
-            return redirect(route('sliders.index'));
+            return redirect(route('testimonials.index'));
         }
 
         if ($request->hasFile('image')) {
@@ -138,9 +138,9 @@ class SliderController extends AppBaseController
 
         $slider = $this->sliderRepository->update($input, $id);
 
-        Flash::success('Slider berhasil diupdate.');
+        Flash::success('Tesimoni berhasil diupdate.');
 
-        return redirect(route('sliders.index'));
+        return redirect(route('testimonials.index'));
     }
 
     /**
@@ -155,15 +155,15 @@ class SliderController extends AppBaseController
         $slider = $this->sliderRepository->find($id);
 
         if (empty($slider)) {
-            Flash::error('Slider tidak ditemukan');
+            Flash::error('Tesimoni tidak ditemukan');
 
-            return redirect(route('sliders.index'));
+            return redirect(route('testimonials.index'));
         }
 
         $this->sliderRepository->delete($id);
 
-        Flash::success('Slider berhasil dihapus.');
+        Flash::success('Tesimoni berhasil dihapus.');
 
-        return redirect(route('sliders.index'));
+        return redirect(route('testimonials.index'));
     }
 }

@@ -2,13 +2,13 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Sliders</h1><br><br>
+        <h1 class="pull-left">Testimonial</h1><br><br>
         <div>
-            {{ Breadcrumbs::render('slider') }}
+            {{ Breadcrumbs::render('testimonial') }}
         </div>
         <h1 class="pull-right">
             @can('tambah-slider')
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('sliders.create') }}">Tambah Baru</a>
+           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('testimonials.create') }}">Tambah Baru</a>
             @endcan
         </h1>
     </section>
@@ -20,7 +20,7 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                    @include('sliders.table')
+                    @include('testimonials.table')
             </div>
         </div>
         <div class="text-center">

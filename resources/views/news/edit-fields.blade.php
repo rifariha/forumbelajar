@@ -22,7 +22,7 @@
     {!! Form::file('image', null, ['class' => 'form-control']) !!}
     <i class="red"> Maksimal 1 Mb </i>
     <br>
-    <img src="{{ url('storage/'.$news->image) }}">
+    <img src="{{ url('storage/'.$news->image) }}" width="50%">
 </div>
 
 <!-- Submit Field -->

@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomePageController@index')->name('homepage');
+Route::get('/berita', 'HomePageController@listBerita')->name('homepage.berita');
+Route::get('/berita/{slug}/', 'HomePageController@detailBerita')->name('homepage.berita.detail');
+
+Route::get('/dokumentasi', 'HomePageController@documentation')->name('homepage.documentation');
+
 
 Auth::routes();
 
@@ -83,7 +88,7 @@ Route::resource('news', 'NewsController');
 
 Route::resource('newsCategories', 'NewsCategoryController');
 
-Route::resource('sliders', 'SliderController');
+Route::resource('testimonials', 'SliderController');
 
 Route::resource('backupLogs', 'BackupLogController');
 

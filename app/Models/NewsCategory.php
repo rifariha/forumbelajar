@@ -19,9 +19,7 @@ class NewsCategory extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
-
-
+    protected $appends = ['amount'];
     public $fillable = [
         'category_name'
     ];
@@ -48,6 +46,12 @@ class NewsCategory extends Model
     public function news()
     {
         return $this->belongsTo(News::class, 'category_id', 'id');
+    }
+
+    public function getAmountAttribute()
+    {
+        $value =  News::where('category_id', $this->id)->count();
+        return $value;
     }
     
 }
