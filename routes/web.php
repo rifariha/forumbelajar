@@ -34,7 +34,7 @@ Route::prefix('chapters')->group(function () {
     Route::post('/store', 'ChapterController@store')->name('chapters.store');
     Route::get('/{id}/edit', 'ChapterController@edit')->name('chapters.edit');
     Route::patch('/{id}/update', 'ChapterController@update')->name('chapters.update');
-    Route::delete('/{id}/delete', 'ChapterController@destroy')->name('chapters.destroy');
+    Route::delete('/{id}/delete', 'ChapterController@destroy')->name('chapters.destroy'); 
 
     Route::get('/{id}/topics', 'TopicController@index')->name('chapters.show');
     Route::get('/{id}/topics/create', 'TopicController@create')->name('topics.create');
