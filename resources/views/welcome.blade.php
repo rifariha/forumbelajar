@@ -173,7 +173,7 @@
                             <img src="{{ asset('thumbnail/'.$berita->thumbnail)}}" class="card-img-top" alt="blog">
                             <div class="card-body">
                                 <a href="{{ route('homepage.berita',['category' => $berita->category_id])}}" class="btn_4"><?=$berita->category->category_name?></a>
-                                <a href="blog.html">
+                                <a href="{{route('homepage.berita.detail',[$berita->slug])}}">
                                     <h5 class="card-title"><?=$berita->headline?></h5>
                                 </a>
                                 <p>

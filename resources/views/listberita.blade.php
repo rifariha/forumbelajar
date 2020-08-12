@@ -33,7 +33,7 @@
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="single-blog.html">
+                                <a class="d-inline-block" href="{{route('homepage.berita.detail',[$berita->slug])}}">
                                     <h2><?=$berita->headline?></h2>
                                 </a>
                                 <p>@if (strlen($berita->content) > 50)

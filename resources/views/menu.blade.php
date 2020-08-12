@@ -30,8 +30,8 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#kontak-kami">Kontak Kami</a>
                             </li>
-                            <li class="d-none d-lg-block">
-                                <a class="btn_1" href="login">Login / Register</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="login">Login / Register</a>
                             </li>
                         </ul>
                     </div>
