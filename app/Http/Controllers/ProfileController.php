@@ -70,9 +70,15 @@ class ProfileController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->image;
             $ext = $file->getClientOriginalExtension();
+            
+            // $path = $request->file('image')->storeAs('avatar', $userId. '.' . $ext);
+            $dbFilename = 'avatar/' . $userId . '.' . $ext;
+            $filename = $userId.'.'.$ext;
+            $path = public_path('/images/avatar/');
+            
+            $file->storeAs($path, $filename);
 
-            $path = $request->file('image')->storeAs('avatar', $userId. '.' . $ext);
-            $update['image'] = $path;
+            $update['image'] = $dbFilename;
         }
 
         User::where('id',$userId)->update($update);
