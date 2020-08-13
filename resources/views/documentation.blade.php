@@ -20,7 +20,7 @@
                 @foreach($gallery as $val)
                 <div class="col-sm-6 col-lg-4">
                     <div class="single_special_cource">
-                    <img src="{{ url('storage/'.$val->image)}}" class="special_img" alt="">
+                    <img src="{{ asset('images/'.$val->image)}}" class="special_img" alt="">
                         <div class="special_cource_text">         
                             <p><?=$val->description?></p>
                         </div>

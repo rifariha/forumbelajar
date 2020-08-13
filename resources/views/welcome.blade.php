@@ -2,7 +2,7 @@
 <html lang="en">
 @include('css')
 <?php
-    $image_url = url('storage/'.$cms["headline-image"]);
+    $image_url = asset('images/'.$cms["headline-image"]);
 ?>
 <style>
 .dots {
@@ -220,7 +220,7 @@
                                 </div>
                                 <div class="col-lg-4 col-xl-2 col-sm-4">
                                     <div class="testimonial_slider_img">
-                                    <img src="{{ url('storage/'.$testi->image)}}" alt="#">
+                                    <img src="{{ asset('images/'.$testi->image)}}" alt="#">
                                     </div>
                                 </div>
                             </div>

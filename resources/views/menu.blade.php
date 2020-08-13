@@ -8,7 +8,7 @@
         <div class="row align-items-center">
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="{{ route('homepage')}}"> <img src="{{ url('storage/'.$cms["logo-up-down"]) }}" alt="logo"> </a>
+                    <a class="navbar-brand" href="{{ route('homepage')}}"> <img src="{{ asset('images/'.$cms["logo-up-down"]) }}" alt="logo"> </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
