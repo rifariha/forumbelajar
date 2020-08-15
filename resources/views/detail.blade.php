@@ -15,7 +15,7 @@
             <div class="col-lg-8 posts-list">
                <div class="single-post">
                   <div class="feature-img">
-                  <img class="img-fluid" src="{{ asset('images/'.$news->image)}}" alt="">
+                  <img class="img-fluid" src="{{ url('storage/'.$news->image)}}" alt="">
                   </div>
                   <div class="blog_details">
                      <h2><?=$news->headline?>

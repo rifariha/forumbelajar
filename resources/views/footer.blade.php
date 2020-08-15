@@ -3,7 +3,7 @@
             <div class="row justify-content-between">
                 <div class="col-md-6">
                     <div class="single-footer-widget footer_1">
-                        <a href="index.html"> <img src="{{ asset('images/'.$cms["logo-up-down"]) }}"  alt=""> </a>
+                        <a href="index.html"> <img src="{{ url('storage/'.$cms["logo-up-down"]) }}"  alt=""> </a>
                         <p><?=$cms['footer-description']?></p>
                     </div>
                 </div>

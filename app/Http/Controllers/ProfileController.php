@@ -14,9 +14,9 @@ class ProfileController extends Controller
     public function edit()
     {
         $userId = Auth::user()->id;
-        $user = User::where('id',$userId)->first();
+        $user = User::where('id', $userId)->first();
 
-        return view('users.profile',compact('user'));
+        return view('users.profile', compact('user'));
     }
 
     public function update(Request $request)
@@ -30,28 +30,25 @@ class ProfileController extends Controller
             'address' => 'required',
             'password' => 'required',
         ]);
-            
+
         $userId = Auth::user()->id;
 
         $userData = User::where(['id' => $userId])->first();
 
-        if (!Hash::check($request->password, $userData->password) ) {
+        if (!Hash::check($request->password, $userData->password)) {
             Flash::error('Password yang anda masukan salah');
             return redirect()->back();
         }
 
-        if($request->username != $userData->username)
-        {
+        if ($request->username != $userData->username) {
             $findUsername = User::where(['username' => $request->username])->count();
-            if($findUsername != 0)
-            {
+            if ($findUsername != 0) {
                 Flash::error('Username sudah digunakan');
                 return redirect()->back();
             }
         }
 
-        if($request->email != $userData->email)
-        {
+        if ($request->email != $userData->email) {
             $findEmail = User::where(['email' => $request->email])->count();
             if ($findEmail != 0) {
                 Flash::error('Email sudah digunakan');
@@ -70,18 +67,12 @@ class ProfileController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->image;
             $ext = $file->getClientOriginalExtension();
-            
-            // $path = $request->file('image')->storeAs('avatar', $userId. '.' . $ext);
-            $dbFilename = 'avatar/' . $userId . '.' . $ext;
-            $filename = $userId.'.'.$ext;
-            $path = public_path('/images/avatar/');
-            
-            $file->storeAs($path, $filename);
 
-            $update['image'] = $dbFilename;
+            $path = $request->file('image')->storeAs('avatar', $userId . '.' . $ext);
+            $update['image'] = $path;
         }
 
-        User::where('id',$userId)->update($update);
+        User::where('id', $userId)->update($update);
 
         Flash::success('Profile berhasil diupdate.');
 
@@ -101,7 +92,7 @@ class ProfileController extends Controller
         if (!Hash::check($request->oldpassword, $userData->password)) {
             Flash::error('Password lama yang anda masukan salah');
             return redirect()->back();
-        }  
+        }
         $password = [
             'password' => Hash::make($request->password)
         ];

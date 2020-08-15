@@ -6,7 +6,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{ asset('images/'.Auth::user()->image) }}" class="user-image"
+                <img src="{{ url('storage/'.Auth::user()->image) }}" class="user-image"
                      alt="User Image"/>
             </div>
             <div class="pull-left info">

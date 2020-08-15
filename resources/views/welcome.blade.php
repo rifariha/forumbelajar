@@ -2,7 +2,7 @@
 <html lang="en">
 @include('css')
 <?php
-    $image_url = asset('images/'.$cms["headline-image"]);
+    $image_url = url('storage/'.$cms["headline-image"]);
 ?>
 <style>
 .dots {
@@ -21,7 +21,6 @@
   background-size: 100% 100%;
   right: 9%;
 }
-
 @media (max-width: 576px) {
   /* line 164, E:/172 Etrain Education/172_Etrain_Education_html/sass/_banner.scss */
   .banner_part:after {
@@ -39,7 +38,6 @@
     background-repeat: no-repeat;
   }
 }
-
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   /* line 164, E:/172 Etrain Education/172_Etrain_Education_html/sass/_banner.scss */
   .banner_part:after {
@@ -57,7 +55,6 @@
     background-repeat: no-repeat;
   }
 }
-
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   /* line 164, E:/172 Etrain Education/172_Etrain_Education_html/sass/_banner.scss */
   .banner_part:after {
@@ -75,7 +72,6 @@
     background-repeat: no-repeat;
   }
 }
-
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
   /* line 164, E:/172 Etrain Education/172_Etrain_Education_html/sass/_banner.scss */
   .banner_part:after {
@@ -91,7 +87,6 @@
     background-repeat: no-repeat;
   }
 }
-
 </style>
 <body>
   @include('menu')
@@ -220,7 +215,7 @@
                                 </div>
                                 <div class="col-lg-4 col-xl-2 col-sm-4">
                                     <div class="testimonial_slider_img">
-                                    <img src="{{ asset('images/'.$testi->image)}}" alt="#">
+                                    <img src="{{ url('storage/'.$testi->image)}}" alt="#">
                                     </div>
                                 </div>
                             </div>
