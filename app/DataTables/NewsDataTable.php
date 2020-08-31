@@ -63,6 +63,7 @@ class NewsDataTable extends DataTable
             ->addAction(['width' => '120px'])
             ->parameters([
                 'stateSave' => true,
+                'responsive' true,
                 'order'     => [[0, 'desc']],
             ]);
     }
