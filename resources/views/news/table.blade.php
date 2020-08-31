@@ -1,8 +1,12 @@
 @section('css')
     @include('layouts.datatables_css')
 @endsection
-
-{!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped table-bordered']) !!}
+<style>
+    .resposivetabel{
+        overflow-x:auto;
+    }
+</style>
+{!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped table-bordered resposivetabel']) !!}
 
 @push('scripts')
     @include('layouts.datatables_js')
